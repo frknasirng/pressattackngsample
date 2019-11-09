@@ -1,4 +1,6 @@
-import sampleRoute from './auth';
+import auth from './auth';
+import project from './project';
+import blog from './blog';
 
 export default [
     {
@@ -11,5 +13,7 @@ export default [
                 import ('./../../components/global/NavComponent.vue')
         }
 	},
-	sampleRoute
+	auth,
+	project,
+	blog
 ]

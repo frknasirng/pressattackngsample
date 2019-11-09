@@ -90,6 +90,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -113,7 +117,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "flex bg-white border-b border-gray-200 fixed top-0 inset-x-0 z-100 h-16 items-center"
+        "flex bg-white border-b border-gray-200 z-50000 fixed top-0 inset-x-0 h-16 items-center"
     },
     [
       _c(
@@ -246,9 +250,45 @@ var render = function() {
                 [
                   _c("div", { staticClass: "relative mr-4" }, [
                     _c("ul", { staticClass: "flex" }, [
-                      _vm._m(0),
+                      _c(
+                        "li",
+                        { staticClass: "mr-6" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-gray-500 hover:text-gray-800",
+                              attrs: { to: "/blog" }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\tBlog\n\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
-                      _vm._m(1),
+                      _c(
+                        "li",
+                        { staticClass: "mr-6" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-gray-500 hover:text-gray-800",
+                              attrs: { to: "/project" }
+                            },
+                            [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\tProjects\n\t\t\t\t\t\t\t\t"
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c(
                         "li",
@@ -270,7 +310,7 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(0)
                     ])
                   ]),
                   _vm._v(" "),
@@ -383,36 +423,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "mr-6" }, [
-      _c(
-        "a",
-        {
-          staticClass: "text-gray-500 hover:text-gray-800",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Blog")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "mr-6" }, [
-      _c(
-        "a",
-        {
-          staticClass: "text-gray-500 hover:text-gray-800",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Projects")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

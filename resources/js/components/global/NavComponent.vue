@@ -1,5 +1,5 @@
 <template>
-	<nav class="flex bg-white border-b border-gray-200 fixed top-0 inset-x-0 z-100 h-16 items-center">
+	<nav class="flex bg-white border-b border-gray-200 z-50000 fixed top-0 inset-x-0 h-16 items-center">
 		<div class="w-full max-w-screen-xl relative mx-auto px-12">
 			<div class="flex items-center">
 				<div class="lg:w-1/4 xl:w-1/5 pl-6 pr-6 lg:pr-8">
@@ -43,10 +43,14 @@
 						<div class="relative mr-4">
 							<ul class="flex">
 								<li class="mr-6">
-									<a class="text-gray-500 hover:text-gray-800" href="#">Blog</a>
+									<router-link class="text-gray-500 hover:text-gray-800" to="/blog">
+										Blog
+									</router-link>
 								</li>
 								<li class="mr-6">
-									<a class="text-gray-500 hover:text-gray-800" href="#">Projects</a>
+									<router-link class="text-gray-500 hover:text-gray-800" to="/project">
+										Projects
+									</router-link>
 								</li>
 								<li class="mr-6">
 									<router-link class="text-gray-500 hover:text-gray-800" to="/auth/login">

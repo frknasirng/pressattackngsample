@@ -37072,7 +37072,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/auth',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37083,7 +37083,7 @@ __webpack_require__.r(__webpack_exports__);
     name: 'login',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37094,7 +37094,42 @@ __webpack_require__.r(__webpack_exports__);
     name: 'register',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
+        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
+      },
+      header: function header() {
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+      }
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/router/routes/blog.js":
+/*!********************************************!*\
+  !*** ./resources/js/router/routes/blog.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  path: '/blog',
+  components: {
+    "default": function _default() {
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../../pages/Blog.vue */ "./resources/js/pages/Blog.vue"));
+    },
+    header: function header() {
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+    }
+  },
+  children: [{
+    path: '/',
+    name: 'BrowseBlog',
+    components: {
+      "default": function _default() {
+        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../../components/blog/Browse.vue */ "./resources/js/components/blog/Browse.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37115,19 +37150,58 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/router/routes/auth.js");
+/* harmony import */ var _project__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./project */ "./resources/js/router/routes/project.js");
+/* harmony import */ var _blog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./blog */ "./resources/js/router/routes/blog.js");
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
   name: 'home',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
+      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
     }
   }
-}, _auth__WEBPACK_IMPORTED_MODULE_0__["default"]]);
+}, _auth__WEBPACK_IMPORTED_MODULE_0__["default"], _project__WEBPACK_IMPORTED_MODULE_1__["default"], _blog__WEBPACK_IMPORTED_MODULE_2__["default"]]);
+
+/***/ }),
+
+/***/ "./resources/js/router/routes/project.js":
+/*!***********************************************!*\
+  !*** ./resources/js/router/routes/project.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  path: '/project',
+  components: {
+    "default": function _default() {
+      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./../../pages/Project.vue */ "./resources/js/pages/Project.vue"));
+    },
+    header: function header() {
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+    }
+  },
+  children: [{
+    path: '/',
+    name: 'BrowseProject',
+    components: {
+      "default": function _default() {
+        return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ./../../components/project/Browse.vue */ "./resources/js/components/project/Browse.vue"));
+      },
+      header: function header() {
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+      }
+    }
+  }]
+});
 
 /***/ }),
 
