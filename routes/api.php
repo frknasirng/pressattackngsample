@@ -13,6 +13,30 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Private routes
+ */
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
+	/**
+     * User Routes
+     */
+	Route::get('/logout', 'AuthController@logout')->name('logout');
+    Route::get('/user', 'UserController@authenticatedUser');
+    Route::get('/users', 'UserController@index');
+    Route::get('/user/{id}', 'UserController@show');
+    Route::post('/user', 'UserController@store');
+    Route::put('/user', 'UserController@update');
+    Route::put('/user/{id}/changePassword', 'UserController@changeUserPassword');
+    Route::delete('/user', 'UserController@destroy');
+    /**
+     * End User Routes
+     */
+});
+
+/**
+ * Public routes
+ */
+Route::group(['prefix' => 'v1'], function() {
+	Route::post('/login', 'AuthController@login')->name('login.api');
+	Route::post('/register', 'AuthController@register')->name('register.api');
 });

@@ -36937,6 +36937,123 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/api/user.js":
+/*!**********************************!*\
+  !*** ./resources/js/api/user.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _config_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../config.js */ "./resources/js/config.js");
+/*
+* Imports the API URL from the config.
+*/
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  /**
+   * 
+   * @param {*} name 
+   * @param {*} email 
+   * @param {*} password 
+   * @param {*} password_confirmation 
+   */
+  register: function register(name, email, password, password_confirmation) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/register', {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    });
+  },
+
+  /**
+   * 
+   * @param {*} email 
+   * @param {*} password 
+   */
+  login: function login(email, password) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/login', {
+      email: email,
+      password: password
+    });
+  },
+  logout: function logout() {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/logout');
+  },
+
+  /**
+   * GET /api/v1/users
+   */
+  getUsers: function getUsers() {
+    var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    url = url || _config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/users';
+    return axios.get(url);
+  },
+
+  /**
+   * GET /api/v1/user
+   */
+  getAuthUser: function getAuthUser() {
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user');
+  },
+
+  /**
+   * GET /api/v1/user/{id}
+   */
+  getAUser: function getAUser(id) {
+    return axios.get(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user/' + id);
+  },
+
+  /** 
+   * POST  /api/v1/user
+  */
+  addUser: function addUser(name, email, password, role_id) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user', {
+      name: name,
+      email: email,
+      password: password,
+      role_id: role_id
+    });
+  },
+
+  /**
+   * PUT /api/v1/user
+   */
+  updateUser: function updateUser(id, name, email, role_id) {
+    return axios.put(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user', {
+      id: id,
+      name: name,
+      email: email,
+      role_id: role_id
+    });
+  },
+
+  /**
+   * PUT /api/v1/user/{id}/changePassword
+   */
+  changeUserPassword: function changeUserPassword(id, password) {
+    return axios.put(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user/' + id + '/changePassword', {
+      id: id,
+      password: password
+    });
+  },
+
+  /**
+   * DELETE /api/v1/election
+   */
+  deleteUser: function deleteUser(id) {
+    return axios["delete"](_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/user', {
+      params: {
+        id: id
+      }
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -36987,6 +37104,23 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common = {
+    Accept: "application/json, text/plain, */*",
+    "Content-Type": "application/json"
+  };
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
@@ -37002,6 +37136,41 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/config.js":
+/*!********************************!*\
+  !*** ./resources/js/config.js ***!
+  \********************************/
+/*! exports provided: CONFIG */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CONFIG", function() { return CONFIG; });
+/*
+    Defines the API route we are using.
+*/
+var api_url = '';
+var url = '';
+
+switch ("development") {
+  case 'development':
+    api_url = 'http://127.0.0.1:8000/api/v1';
+    url = 'http://127.0.0.1:8000';
+    break;
+
+  case 'production':
+    api_url = "http://localhost" + '/api/v1';
+    url = "http://localhost";
+    break;
+}
+
+var CONFIG = {
+  API_URL: api_url,
+  URL: url
+};
+
+/***/ }),
+
 /***/ "./resources/js/mixins/base.js":
 /*!*************************************!*\
   !*** ./resources/js/mixins/base.js ***!
@@ -37013,8 +37182,346 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base", function() { return base; });
 var base = {
-  computed: {},
+  created: function created() {},
+  mounted: function mounted() {},
+  data: function data() {
+    return {};
+  },
+  computed: {
+    bearerToken: function bearerToken(val) {
+      if (val) {
+        window.axios.defaults.headers.common = {
+          'Authorization': "Bearer ".concat(val),
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        };
+      }
+    }
+  },
   methods: {}
+};
+
+/***/ }),
+
+/***/ "./resources/js/modules/user.js":
+/*!**************************************!*\
+  !*** ./resources/js/modules/user.js ***!
+  \**************************************/
+/*! exports provided: user */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
+/* harmony import */ var _api_user_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../api/user.js */ "./resources/js/api/user.js");
+/*
+|-------------------------------------------------------------------------------
+| VUEX modules/user.js
+|-------------------------------------------------------------------------------
+| The Vuex data store for the user
+*/
+
+var user = {
+  state: {
+    loginLoadStatus: 0,
+    loginResponse: {},
+    registerLoadStatus: 0,
+    registerResponse: {},
+    logoutLoadStatus: 0,
+    logoutResponse: {},
+    users: {},
+    usersLoadStatus: 0,
+    userPagination: {},
+    user: {},
+    userLoadStatus: 0,
+    aUser: {},
+    aUserLoadStatus: 0,
+    addUserLoadStatus: 0,
+    addUserResponse: {},
+    updateUserLoadStatus: 0,
+    updateUserResponse: {},
+    changeUserPasswordLoadStatus: 0,
+    changeUserPasswordResponse: {},
+    deleteUserLoadStatus: 0,
+    deleteUserResponse: {},
+    bearerToken: ''
+  },
+  actions: {
+    register: function register(_ref, data) {
+      var commit = _ref.commit;
+      alert(JSON.stringify(data));
+      commit('setRegisterLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].register(data.name, data.email, data.password, data.password_confirmation).then(function (response) {
+        commit('setRegisterLoadStatus', 2);
+        commit('setRegisterResponse', response);
+      })["catch"](function (response) {
+        commit('setRegisterLoadStatus', 3);
+        commit('setRegisterResponse', response);
+      });
+    },
+    login: function login(_ref2, data) {
+      var commit = _ref2.commit;
+      commit('setLoginLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].login(email, password).then(function (response) {
+        commit('setLoginLoadStatus', 2);
+        commit('setLoginResponse', response);
+      })["catch"](function (response) {
+        commit('setLoginLoadStatus', 3);
+        commit('setLoginResponse', response);
+      });
+    },
+    logout: function logout(_ref3, data) {
+      var commit = _ref3.commit;
+      commit('setLogoutLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].logout().then(function (response) {
+        commit('setLogoutLoadStatus', 2);
+        commit('setLogoutResponse', response);
+      })["catch"](function (response) {
+        commit('setLogoutLoadStatus', 3);
+        commit('setLogoutResponse', response);
+      });
+    },
+    loadUsers: function loadUsers(_ref4, data) {
+      var commit = _ref4.commit;
+      commit('setUsersLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUsers(data.url).then(function (response) {
+        commit('setUsersLoadStatus', 2);
+        commit('setUsers', response.data.data);
+        commit('setUserPagination', {
+          meta: response.data.meta,
+          links: response.data.links
+        });
+      })["catch"](function () {
+        commit('setUsersLoadStatus', 3);
+        commit('setUsers', {});
+      });
+    },
+    loadAuthUser: function loadAuthUser(_ref5) {
+      var commit = _ref5.commit;
+      commit('setUserLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAuthUser().then(function (response) {
+        commit('setUserLoadStatus', 2);
+        commit('setUser', response.data.data);
+      })["catch"](function () {
+        commit('setUserLoadStatus', 3);
+        commit('setUser', {});
+        commit('setBearerToken', '');
+      });
+    },
+    loadAUser: function loadAUser(_ref6, data) {
+      var commit = _ref6.commit;
+      commit('setAUserLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAUser(data.id).then(function (response) {
+        commit('setAUserLoadStatus', 2);
+        commit('setAUser', response.data.data);
+      })["catch"](function () {
+        commit('setAUserLoadStatus', 3);
+        commit('setAUser', {});
+      });
+    },
+    addUser: function addUser(_ref7, data) {
+      var commit = _ref7.commit;
+      commit('setAddUserLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].addUser(data.name, data.email, data.password, data.role_id).then(function (response) {
+        commit('setAddUserLoadStatus', 2);
+        commit('setAddUserResponse', response.data);
+      })["catch"](function () {
+        commit('setAddUserLoadStatus', 3);
+        commit('setAddUserResponse', {
+          success: 0,
+          message: 'Something went wrong. Try again!'
+        });
+      });
+    },
+    updateUser: function updateUser(_ref8, data) {
+      var commit = _ref8.commit;
+      commit('setUpdateUserLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].updateUser(data.id, data.name, data.email, data.role_id).then(function (response) {
+        commit('setUpdateUserLoadStatus', 2);
+        commit('setUpdateUserResponse', response.data);
+      })["catch"](function () {
+        commit('setUpdateUserLoadStatus', 3);
+        commit('setUpdateUserResponse', {
+          success: 0,
+          message: 'Something went wrong. Try again!'
+        });
+      });
+    },
+    changeUserPassword: function changeUserPassword(_ref9, data) {
+      var commit = _ref9.commit;
+      commit('setChangeUserPasswordLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].changeUserPassword(data.id, data.password).then(function (response) {
+        commit('setChangeUserPasswordLoadStatus', 2);
+        commit('setChangeUserPasswordResponse', response.data);
+      })["catch"](function () {
+        commit('setChangeUserPasswordLoadStatus', 3);
+        commit('setChangeUserPasswordResponse', {
+          success: 0,
+          message: 'Something went wrong. Try again!'
+        });
+      });
+    },
+    deleteUser: function deleteUser(_ref10, data) {
+      var commit = _ref10.commit;
+      commit('setDeleteUserLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteUser(data.id).then(function (response) {
+        commit('setDeleteUserLoadStatus', 2);
+        commit('setDeleteUserResponse', response.data);
+      })["catch"](function () {
+        commit('setDeleteUserLoadStatus', 3);
+        commit('setDeleteUserResponse', {
+          success: 0,
+          message: 'Something went wrong. Try again!'
+        });
+      });
+    }
+  },
+  mutations: {
+    setLoginLoadStatus: function setLoginLoadStatus(state, status) {
+      state.loginLoadStatus = status;
+    },
+    setLoginResponse: function setLoginResponse(state, response) {
+      state.loginResponse = response;
+    },
+    setRegisterLoadStatus: function setRegisterLoadStatus(state, status) {
+      state.registerLoadStatus = status;
+    },
+    setRegisterResponse: function setRegisterResponse(state, response) {
+      state.registerResponse = response;
+    },
+    setLogoutLoadStatus: function setLogoutLoadStatus(state, status) {
+      state.logoutLoadStatus = status;
+    },
+    setLogoutResponse: function setLogoutResponse(state, response) {
+      state.logoutResponse = response;
+    },
+    setUsers: function setUsers(state, users) {
+      state.users = users;
+    },
+    setUsersLoadStatus: function setUsersLoadStatus(state, status) {
+      state.usersLoadStatus = status;
+    },
+    setUserPagination: function setUserPagination(state, data) {
+      var meta = data.meta;
+      var links = data.links;
+      var pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        to: meta.to,
+        total: meta.total,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      };
+      state.userPagination = pagination;
+    },
+    setUser: function setUser(state, user) {
+      state.user = user;
+    },
+    setUserLoadStatus: function setUserLoadStatus(state, status) {
+      state.userLoadStatus = status;
+    },
+    setAUser: function setAUser(state, user) {
+      state.aUser = user;
+    },
+    setAUserLoadStatus: function setAUserLoadStatus(state, status) {
+      state.aUserLoadStatus = status;
+    },
+    setAddUserLoadStatus: function setAddUserLoadStatus(state, status) {
+      state.addUserLoadStatus = status;
+    },
+    setAddUserResponse: function setAddUserResponse(state, Response) {
+      state.addUserResponse = Response;
+    },
+    setUpdateUserLoadStatus: function setUpdateUserLoadStatus(state, status) {
+      state.updateUserLoadStatus = status;
+    },
+    setUpdateUserResponse: function setUpdateUserResponse(state, Response) {
+      state.updateUserResponse = Response;
+    },
+    setChangeUserPasswordLoadStatus: function setChangeUserPasswordLoadStatus(state, status) {
+      state.changeUserPasswordLoadStatus = status;
+    },
+    setChangeUserPasswordResponse: function setChangeUserPasswordResponse(state, Response) {
+      state.changeUserPasswordResponse = Response;
+    },
+    setDeleteUserLoadStatus: function setDeleteUserLoadStatus(state, status) {
+      state.deleteUserLoadStatus = status;
+    },
+    setDeleteUserResponse: function setDeleteUserResponse(state, Response) {
+      state.setDeleteUserResponse = Response;
+    },
+    setBearerToken: function setBearerToken(state, token) {
+      state.bearerToken = token;
+    }
+  },
+  getters: {
+    getLoginLoadStatus: function getLoginLoadStatus(state) {
+      return state.loginLoadStatus;
+    },
+    getLoginResponse: function getLoginResponse(state) {
+      return state.loginResponse;
+    },
+    getRegisterLoadStatus: function getRegisterLoadStatus(state) {
+      return state.registerLoadStatus;
+    },
+    getRegisterResponse: function getRegisterResponse(state) {
+      return state.registerResponse;
+    },
+    getLogoutLoadStatus: function getLogoutLoadStatus(state) {
+      return state.logoutLoadStatus;
+    },
+    getLogoutResponse: function getLogoutResponse(state) {
+      return state.logoutResponse;
+    },
+    getUsers: function getUsers(state) {
+      return state.users;
+    },
+    getUsersLoadStatus: function getUsersLoadStatus(state) {
+      return state.usersLoadStatus;
+    },
+    getUserPagination: function getUserPagination(state) {
+      return state.userPagination;
+    },
+    getUser: function getUser(state) {
+      return state.user;
+    },
+    getUserLoadStatus: function getUserLoadStatus(state) {
+      return state.userLoadStatus;
+    },
+    getAUser: function getAUser(state) {
+      return state.aUser;
+    },
+    getAUserLoadStatus: function getAUserLoadStatus(state) {
+      return state.aUserLoadStatus;
+    },
+    getAddUserLoadStatus: function getAddUserLoadStatus(state) {
+      return state.addUserLoadStatus;
+    },
+    getAddUserResponse: function getAddUserResponse(state) {
+      return state.addUserResponse;
+    },
+    getUpdateUserLoadStatus: function getUpdateUserLoadStatus(state) {
+      return state.updateUserLoadStatus;
+    },
+    getUpdateUserResponse: function getUpdateUserResponse(state) {
+      return state.updateUserResponse;
+    },
+    getChangeUserPasswordLoadStatus: function getChangeUserPasswordLoadStatus(state) {
+      return state.changeUserPasswordLoadStatus;
+    },
+    getChangeUserPasswordResponse: function getChangeUserPasswordResponse(state) {
+      return state.changeUserPasswordResponse;
+    },
+    getDeleteUserLoadStatus: function getDeleteUserLoadStatus(state) {
+      return state.deleteUserLoadStatus;
+    },
+    getDeleteUserResponse: function getDeleteUserResponse(state) {
+      return state.setDeleteUserResponse;
+    },
+    getBearerToken: function getBearerToken(state) {
+      return state.bearerToken;
+    }
+  }
 };
 
 /***/ }),
@@ -37052,7 +37559,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }
 });
 router.beforeEach(function (to, from, next) {
-  // store.dispatch('loadUserSession');
+  _store_js__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('loadAuthUser');
   next();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -37068,22 +37575,25 @@ router.beforeEach(function (to, from, next) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./guard */ "./resources/js/router/routes/guard.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   path: '/auth',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
+      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
     }
   },
+  beforeEnter: _guard__WEBPACK_IMPORTED_MODULE_0__["guard"].notAuthenticated,
   children: [{
     path: 'login',
-    name: 'login',
+    name: 'auth.login',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
+        return Promise.all(/*! import() */[__webpack_require__.e(9), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37091,10 +37601,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   }, {
     path: 'register',
-    name: 'register',
+    name: 'auth.register',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
+        return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37118,7 +37628,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/blog',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../../pages/Blog.vue */ "./resources/js/pages/Blog.vue"));
+      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./../../pages/Blog.vue */ "./resources/js/pages/Blog.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37129,7 +37639,7 @@ __webpack_require__.r(__webpack_exports__);
     name: 'BrowseBlog',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../../components/blog/Browse.vue */ "./resources/js/components/blog/Browse.vue"));
+        return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./../../components/blog/Browse.vue */ "./resources/js/components/blog/Browse.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37137,6 +37647,66 @@ __webpack_require__.r(__webpack_exports__);
     }
   }]
 });
+
+/***/ }),
+
+/***/ "./resources/js/router/routes/guard.js":
+/*!*********************************************!*\
+  !*** ./resources/js/router/routes/guard.js ***!
+  \*********************************************/
+/*! exports provided: guard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "guard", function() { return guard; });
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../store */ "./resources/js/store.js");
+
+var guard = {
+  /*
+  	This will cehck to see if the user is authenticated or not.
+  */
+  requireAuth: function requireAuth(to, from, next) {
+    /*
+    	Determines where we should send the user.
+    */
+    function proceed() {
+      /*
+      	If the user has been loaded determine where we should
+      	send the user.
+      */
+      if (_store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken) {
+        next();
+      } else {
+        //user is not logged in
+        console.log('you are not logged in');
+      }
+    }
+
+    proceed();
+  },
+
+  /**
+   * 
+   * @param {*} to 
+   * @param {*} from 
+   * @param {*} next 
+   */
+  notAuthenticated: function notAuthenticated(to, from, next) {
+    /**
+     * Determine if the user is already logged in
+     */
+    function proceed() {
+      if (!_store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken) {
+        next();
+      } else {
+        console.log('Already logged in');
+      }
+    }
+
+    proceed();
+  }
+};
 
 /***/ }),
 
@@ -37160,7 +37730,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'home',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
+      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37183,7 +37753,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/project',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./../../pages/Project.vue */ "./resources/js/pages/Project.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./../../pages/Project.vue */ "./resources/js/pages/Project.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -37218,6 +37788,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
+/* harmony import */ var _modules_user_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/user.js */ "./resources/js/modules/user.js");
 /*
 |-------------------------------------------------------------------------------
 | VUEX store.js
@@ -37250,14 +37821,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*
     Imports all of the modules used in the application to build the data store.
 */
-// import { user } from './modules/user.js';
+
 
 /*
 Exports our data store.
 */
 
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
-  modules: {// user
+  modules: {
+    user: _modules_user_js__WEBPACK_IMPORTED_MODULE_3__["user"]
   },
   plugins: [Object(vuex_persistedstate__WEBPACK_IMPORTED_MODULE_2__["default"])()]
 }));

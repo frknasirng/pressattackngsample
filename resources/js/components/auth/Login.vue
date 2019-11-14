@@ -49,8 +49,18 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
 export default {
+	mixins: [
+		validationMixin
+	],
+	data () {
+		return {
+			credentials: {
 
+			}
+		}
+	}
 }
 </script>
 

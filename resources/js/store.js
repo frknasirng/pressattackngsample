@@ -30,14 +30,14 @@ Vue.use(Vuex);
 /*
     Imports all of the modules used in the application to build the data store.
 */
-// import { user } from './modules/user.js';
+import { user } from './modules/user.js';
 
 /*
 Exports our data store.
 */
 export default new Vuex.Store({
     modules: {
-        // user
+        user
     },
     plugins: [
         createPersistedState()

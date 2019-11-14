@@ -1,3 +1,5 @@
+import { guard } from './guard';
+
 export default {
 	path: '/auth',
 	components: {
@@ -6,10 +8,11 @@ export default {
         header: () =>
             import ('./../../components/global/NavComponent.vue')
 	},
+	beforeEnter: guard.notAuthenticated,
 	children: [
 		{
 			path: 'login',
-			name: 'login',
+			name: 'auth.login',
 			components: {
 				default: () =>
 					import ('./../../components/auth/Login.vue'),
@@ -19,7 +22,7 @@ export default {
 		},
 		{
 			path: 'register',
-			name: 'register',
+			name: 'auth.register',
 			components: {
 				default: () =>
 					import ('./../../components/auth/Register.vue'),
