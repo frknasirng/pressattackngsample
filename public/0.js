@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../bus */ "./resources/js/bus.js");
 //
 //
 //
@@ -94,7 +95,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  created: function created() {
+    this.$store.dispatch('loadAuthUser');
+  },
+  mounted: function mounted() {},
+  data: function data() {
+    return {};
+  },
+  computed: {
+    logoutLoadStatus: function logoutLoadStatus() {
+      this.$store.getters.getLogoutLoadStatus;
+    },
+    logoutResponse: function logoutResponse() {
+      this.$store.getters.getLogoutResponse;
+    }
+  },
+  watch: {
+    logoutLoadStatus: function logoutLoadStatus(val) {
+      if (val === 2) {
+        this.$store.commit('setBearerToken', '');
+        _bus__WEBPACK_IMPORTED_MODULE_0__["Bus"].$emit('reloadApp');
+      }
+    }
+  },
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch('logout');
+    }
+  }
+});
 
 /***/ }),
 
@@ -290,25 +326,42 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "mr-6" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "text-gray-500 hover:text-gray-800",
-                              attrs: { to: "/auth/login" }
-                            },
+                      _vm.bearerToken
+                        ? _c("li", { staticClass: "mr-6" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "text-gray-500 hover:text-gray-800",
+                                on: { click: _vm.logout }
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t\tLogout\n\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          ])
+                        : _c(
+                            "li",
+                            { staticClass: "mr-6" },
                             [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\t\tLogin\n\t\t\t\t\t\t\t\t"
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "text-gray-500 hover:text-gray-800",
+                                  attrs: { to: "/auth/login" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\tLogin\n\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
                               )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
+                            ],
+                            1
+                          ),
                       _vm._v(" "),
                       _vm._m(0)
                     ])

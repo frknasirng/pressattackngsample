@@ -1,6 +1,11 @@
+import store from './../store';
+
 export const base = {
 	created () {
-		
+		if (store.getters.getBearerToken) {
+			let t = store.getters.getBearerToken;
+			window.axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
+		}
 	},
 
 	mounted () {
@@ -14,14 +19,14 @@ export const base = {
 	},
 
     computed: {
-        bearerToken: function (val) {
-			if (val) {
-				window.axios.defaults.headers.common = {
-					'Authorization': `Bearer ${val}`,
-					Accept: "application/json, text/plain, */*",
-  					"Content-Type": "application/json"
-				}
-			}
+        user () {
+			return store.getters.getUser;
+		},
+		userLoadStatus () {
+			return store.getters.getUserLoadStatus;
+		},
+		bearerToken () {
+			return store.getters.getBearerToken;
 		}
     },
 

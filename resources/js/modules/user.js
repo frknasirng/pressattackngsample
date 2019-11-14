@@ -103,7 +103,7 @@ export const user = {
                 .catch(function () {
                     commit('setUserLoadStatus', 3);
 					commit('setUser', {});
-					commit('setBearerToken', '');
+					// commit('setBearerToken', '');
                 });
         },
         loadAUser({ commit }, data) {

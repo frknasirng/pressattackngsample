@@ -83,7 +83,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   data: function data() {
     return {
-      user: {
+      usr: {
         name: '',
         email: '',
         password: '',
@@ -93,12 +93,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
-    use: function use() {
-      return this.$store.getters.getUser;
-    },
-    userLoadStatus: function userLoadStatus() {
-      return this.$store.getters.getUserLoadStatus;
-    },
     registerLoadStatus: function registerLoadStatus() {
       return this.$store.getters.getRegisterLoadStatus;
     },
@@ -112,6 +106,10 @@ __webpack_require__.r(__webpack_exports__);
         this.errors.splice(0, this.errors.length);
       } else if (val === 2) {
         this.$store.commit('setBearerToken', this.registerResponse.data.token);
+        _bus__WEBPACK_IMPORTED_MODULE_0__["Bus"].$emit('reloadApp');
+        this.$router.push({
+          name: 'home'
+        });
       } else if (val === 3) {
         if (this.registerResponse.message) {
           this.errors.push(this.registerResponse.message);
@@ -125,25 +123,25 @@ __webpack_require__.r(__webpack_exports__);
     checkForm: function checkForm() {
       this.errors = [];
 
-      if (!this.user.name) {
+      if (!this.usr.name) {
         this.errors.push("Name required.");
       }
 
-      if (!this.user.email) {
+      if (!this.usr.email) {
         this.errors.push('Email required.');
-      } else if (!this.validEmail(this.user.email)) {
+      } else if (!this.validEmail(this.usr.email)) {
         this.errors.push('Valid email required.');
       }
 
-      if (!this.user.password) {
+      if (!this.usr.password) {
         this.errors.push("Password required.");
       }
 
-      if (!this.user.password_confirmation) {
+      if (!this.usr.password_confirmation) {
         this.errors.push("Password confirmation required.");
       }
 
-      if (this.user.password !== this.user.password_confirmation) {
+      if (this.usr.password !== this.usr.password_confirmation) {
         this.errors.push("Passwords do not match");
       }
 
@@ -157,11 +155,11 @@ __webpack_require__.r(__webpack_exports__);
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
-    register: function register(user) {
+    register: function register(usr) {
       var validForm = this.checkForm();
 
       if (validForm) {
-        this.$store.dispatch('register', user);
+        this.$store.dispatch('register', usr);
       }
     }
   }
@@ -218,20 +216,20 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.user.name,
-              expression: "user.name"
+              value: _vm.usr.name,
+              expression: "usr.name"
             }
           ],
           staticClass:
             "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-teal-500",
           attrs: { id: "inline-full-name", type: "text", value: "Faruk Nasir" },
-          domProps: { value: _vm.user.name },
+          domProps: { value: _vm.usr.name },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.user, "name", $event.target.value)
+              _vm.$set(_vm.usr, "name", $event.target.value)
             }
           }
         })
@@ -247,8 +245,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.user.email,
-              expression: "user.email"
+              value: _vm.usr.email,
+              expression: "usr.email"
             }
           ],
           staticClass:
@@ -256,15 +254,15 @@ var render = function() {
           attrs: {
             id: "inline-email",
             type: "email",
-            placeholder: "username@example.com"
+            placeholder: "usrname@example.com"
           },
-          domProps: { value: _vm.user.email },
+          domProps: { value: _vm.usr.email },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.user, "email", $event.target.value)
+              _vm.$set(_vm.usr, "email", $event.target.value)
             }
           }
         })
@@ -280,8 +278,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.user.password,
-              expression: "user.password"
+              value: _vm.usr.password,
+              expression: "usr.password"
             }
           ],
           staticClass:
@@ -291,13 +289,13 @@ var render = function() {
             type: "password",
             placeholder: "******************"
           },
-          domProps: { value: _vm.user.password },
+          domProps: { value: _vm.usr.password },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.user, "password", $event.target.value)
+              _vm.$set(_vm.usr, "password", $event.target.value)
             }
           }
         })
@@ -313,8 +311,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.user.password_confirmation,
-              expression: "user.password_confirmation"
+              value: _vm.usr.password_confirmation,
+              expression: "usr.password_confirmation"
             }
           ],
           staticClass:
@@ -324,13 +322,13 @@ var render = function() {
             type: "password",
             placeholder: "******************"
           },
-          domProps: { value: _vm.user.password_confirmation },
+          domProps: { value: _vm.usr.password_confirmation },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.user, "password_confirmation", $event.target.value)
+              _vm.$set(_vm.usr, "password_confirmation", $event.target.value)
             }
           }
         })
@@ -349,7 +347,7 @@ var render = function() {
             attrs: { type: "button" },
             on: {
               click: function($event) {
-                return _vm.register(_vm.user)
+                return _vm.register(_vm.usr)
               }
             }
           },
@@ -428,23 +426,6 @@ var staticRenderFns = [
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./resources/js/bus.js":
-/*!*****************************!*\
-  !*** ./resources/js/bus.js ***!
-  \*****************************/
-/*! exports provided: Bus */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Bus", function() { return Bus; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-var Bus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ }),
 

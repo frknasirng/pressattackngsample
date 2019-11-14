@@ -9,6 +9,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Auth;
+
 class AuthController extends Controller
 {
 	/**
@@ -18,6 +20,8 @@ class AuthController extends Controller
 	
 		$request['password'] = Hash::make($request['password']);
 		$user = User::create($request->toArray());
+
+		Auth::guard('web')->login($user);
 	
 		$token = $user->createToken(str_replace(' ', '_', env('APP_NAME')).'_token')->accessToken;
 		$response = ['token' => $token];
@@ -35,7 +39,7 @@ class AuthController extends Controller
 	public function login (LoginRequest $request) {
 		$credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
 			// Authentication passed...
 			$token = $user->createToken(str_replace(' ', '_', env('APP_NAME')).'_token')->accessToken;
 			$response = ['token' => $token];
@@ -44,29 +48,24 @@ class AuthController extends Controller
 				200
 			);
         } else {
-			$response = [message => "Cant really tell"];
+			$response = [message => "Something went wrong..."];
 			return response()->json(
 				$response,
 				422
 			);
 		}
-
-		$response = [message => "Somthing went wrong"];
-
-		return response()->json(
-			$response,
-			422
-		);
 	
 	}
 
 	/**
 	 * 
 	 */
-	public function logout (LogoutRequest $request) {
+	public function logout (Request $request) {
 
 		$token = $request->user()->token();
 		$token->revoke();
+
+		Auth::guard('web')->logout();
 	
 		$response = 'You have been succesfully logged out!';
 		return response()->json(

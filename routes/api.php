@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 	/**
      * User Routes
      */
-	Route::get('/logout', 'AuthController@logout')->name('logout');
+	Route::post('/logout', 'AuthController@logout')->name('logout');
     Route::get('/user', 'UserController@authenticatedUser');
     Route::get('/users', 'UserController@index');
     Route::get('/user/{id}', 'UserController@show');

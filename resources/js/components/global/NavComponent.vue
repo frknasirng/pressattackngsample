@@ -52,7 +52,12 @@
 										Projects
 									</router-link>
 								</li>
-								<li class="mr-6">
+								<li class="mr-6" v-if="bearerToken">
+									<a class="text-gray-500 hover:text-gray-800" @click="logout">
+										Logout
+									</a>
+								</li>
+								<li class="mr-6" v-else>
 									<router-link class="text-gray-500 hover:text-gray-800" to="/auth/login">
 										Login
 									</router-link>
@@ -84,8 +89,41 @@
 </template>
 
 <script>
-export default {
+import { Bus } from './../../bus';
 
+export default {
+	created () {
+		this.$store.dispatch('loadAuthUser');
+	},
+	mounted () {
+
+	},
+	data () {
+		return {
+
+		}
+	},
+	computed: {
+		logoutLoadStatus () {
+			this.$store.getters.getLogoutLoadStatus;
+		},
+		logoutResponse () {
+			this.$store.getters.getLogoutResponse;
+		}
+	},
+	watch: {
+		logoutLoadStatus: function (val) {
+			if (val === 2) {
+				this.$store.commit('setBearerToken', '');
+				Bus.$emit('reloadApp');
+			}
+		}
+	},
+	methods: {
+		logout () {
+			this.$store.dispatch('logout');
+		}
+	}
 }
 </script>
 

@@ -1,3 +1,5 @@
+import store from './store';
+
 window._ = require('lodash');
 
 /**
@@ -24,6 +26,12 @@ if (token) {
 		Accept: "application/json, text/plain, */*",
   		"Content-Type": "application/json"
 	}
+
+	if (store.getters.getBearerToken) {
+		let t = store.getters.getBearerToken;
+		window.axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
+	}
+	
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }

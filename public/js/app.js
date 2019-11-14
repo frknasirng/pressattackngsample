@@ -1953,6 +1953,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _bus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bus */ "./resources/js/bus.js");
 //
 //
 //
@@ -1961,7 +1962,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      header_key: 0,
+      default_key: 1,
+      footer_key: 2
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    _bus__WEBPACK_IMPORTED_MODULE_0__["Bus"].$on('reloadApp', function () {
+      _this.header_key++;
+      _this.default_key++;
+      _this.footer_key++;
+    });
+  }
+});
 
 /***/ }),
 
@@ -20774,11 +20793,11 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("router-view", { attrs: { name: "header" } }),
+      _c("router-view", { key: _vm.header_key, attrs: { name: "header" } }),
       _vm._v(" "),
-      _c("router-view"),
+      _c("router-view", { key: _vm.default_key }),
       _vm._v(" "),
-      _c("router-view", { attrs: { name: "footer" } })
+      _c("router-view", { key: _vm.footer_key, attrs: { name: "footer" } })
     ],
     1
   )
@@ -37091,8 +37110,12 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
@@ -37117,6 +37140,11 @@ if (token) {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json"
   };
+
+  if (_store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken) {
+    var t = _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken;
+    window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(t);
+  }
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -37133,6 +37161,23 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/bus.js":
+/*!*****************************!*\
+  !*** ./resources/js/bus.js ***!
+  \*****************************/
+/*! exports provided: Bus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Bus", function() { return Bus; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var Bus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ }),
 
@@ -37181,21 +37226,28 @@ var CONFIG = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base", function() { return base; });
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../store */ "./resources/js/store.js");
+
 var base = {
-  created: function created() {},
+  created: function created() {
+    if (_store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken) {
+      var t = _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken;
+      window.axios.defaults.headers.common['Authorization'] = "Bearer ".concat(t);
+    }
+  },
   mounted: function mounted() {},
   data: function data() {
     return {};
   },
   computed: {
-    bearerToken: function bearerToken(val) {
-      if (val) {
-        window.axios.defaults.headers.common = {
-          'Authorization': "Bearer ".concat(val),
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json"
-        };
-      }
+    user: function user() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getUser;
+    },
+    userLoadStatus: function userLoadStatus() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getUserLoadStatus;
+    },
+    bearerToken: function bearerToken() {
+      return _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters.getBearerToken;
     }
   },
   methods: {}
@@ -37304,8 +37356,7 @@ var user = {
         commit('setUser', response.data.data);
       })["catch"](function () {
         commit('setUserLoadStatus', 3);
-        commit('setUser', {});
-        commit('setBearerToken', '');
+        commit('setUser', {}); // commit('setBearerToken', '');
       });
     },
     loadAUser: function loadAUser(_ref6, data) {
@@ -37559,7 +37610,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }
 });
 router.beforeEach(function (to, from, next) {
-  _store_js__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('loadAuthUser');
   next();
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
