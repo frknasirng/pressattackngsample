@@ -80,7 +80,7 @@ var staticRenderFns = [
         "div",
         {
           staticClass:
-            "w-full max-w-screen-xl relative mx-auto px-6 pt-16 pb-40 md:pb-24 mt-24"
+            "w-full max-w-screen-xl static mx-auto px-6 pt-16 pb-40 md:pb-24 mt-24"
         },
         [
           _c("div", { staticClass: "xl:flex -mx-6" }, [

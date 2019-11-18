@@ -1,6 +1,10 @@
 import store from './../store';
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue'
 
 export const base = {
+	components: {
+		ClipLoader
+	},
 	created () {
 		if (store.getters.getBearerToken) {
 			let t = store.getters.getBearerToken;

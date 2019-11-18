@@ -65,12 +65,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mx-auto" }, [
+  return _c("div", { staticClass: "container w-full mx-auto" }, [
     _c(
       "div",
       {
         staticClass:
-          "w-full max-w-screen-xl relative mx-auto px-6 pt-16 pb-40 md:pb-24 mt-24"
+          "w-full max-w-screen-xl static mx-auto px-6 pt-16 pb-40 md:pb-24 mt-24"
       },
       [
         _c("div", { staticClass: "xl:flex -mx-6" }, [

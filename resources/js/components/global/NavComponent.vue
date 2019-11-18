@@ -53,9 +53,10 @@
 									</router-link>
 								</li>
 								<li class="mr-6" v-if="bearerToken">
-									<a class="text-gray-500 hover:text-gray-800" @click="logout">
+									<a v-if="logoutLoadStatus !== 1" class="text-gray-500 hover:text-gray-800 cursor-pointer" @click="logout">
 										Logout
 									</a>
+									<clip-loader v-else :loading="true" color="#38b2ac" size="20px"></clip-loader>
 								</li>
 								<li class="mr-6" v-else>
 									<router-link class="text-gray-500 hover:text-gray-800" to="/auth/login">
@@ -105,15 +106,15 @@ export default {
 	},
 	computed: {
 		logoutLoadStatus () {
-			this.$store.getters.getLogoutLoadStatus;
+			return this.$store.getters.getLogoutLoadStatus;
 		},
 		logoutResponse () {
-			this.$store.getters.getLogoutResponse;
+			return this.$store.getters.getLogoutResponse;
 		}
 	},
 	watch: {
 		logoutLoadStatus: function (val) {
-			if (val === 2) {
+			if (val === 2 || val === 3) {
 				this.$store.commit('setBearerToken', '');
 				Bus.$emit('reloadApp');
 			}

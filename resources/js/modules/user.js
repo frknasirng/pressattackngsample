@@ -54,8 +54,8 @@ export const user = {
 			commit('setLoginLoadStatus', 1);
 
 			UserAPI.login(
-				email,
-				password
+				data.email,
+				data.password
 			).then((response) => {
 				commit('setLoginLoadStatus', 2);
 				commit('setLoginResponse', response);
@@ -64,7 +64,7 @@ export const user = {
 				commit('setLoginResponse', response);
 			});
 		},
-		logout({ commit }, data) {
+		logout({ commit }) {
 			commit('setLogoutLoadStatus', 1);
 
 			UserAPI.logout().then((response) => {
