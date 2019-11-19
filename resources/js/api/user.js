@@ -50,6 +50,56 @@ export default {
 		);
 	},
 
+	/**
+	 * 
+	 * @param {*} email 
+	 */
+	sendPasswordResetLink: function (
+		email
+	) {
+		return axios.post(
+			CONFIG.API_URL + '/password/sendResetLink', {
+				email: email
+			}
+		);
+	},
+
+	/**
+	 * 
+	 * @param {*} email 
+	 * @param {*} token 
+	 */
+	confirmPasswordResetToken: function (
+		email,
+		token
+	) {
+		return axios.post(
+			CONFIG.API_URL + '/password/confirmPasswordResetToken', {
+				email: email,
+				token: token
+			}
+		);
+	},
+
+	/**
+	 * 
+	 * @param {*} email 
+	 * @param {*} password 
+	 */
+	resetPassword: function (
+		email,
+		password,
+		password_confirmation
+	) {
+		return axios.post(
+			CONFIG.API_URL + '/password/reset', {
+				email: email,
+				password: password,
+				password_confirmation: password_confirmation
+			}
+		);
+	},
+
     /**
      * GET /api/v1/users
      */

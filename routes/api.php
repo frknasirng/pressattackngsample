@@ -39,8 +39,10 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 Route::group(['prefix' => 'v1'], function() {
 	Route::post('/login', 'AuthController@login')->name('login.api');
 	Route::post('/register', 'AuthController@register')->name('register.api');
-	Route::get(
-		'/password/reset/{token}/email/{email}', 
-		'AuthController@resetPassword'
-	)->name('password-reset-link.api');
+
+	Route::group(['prefix' => 'password'], function () {
+		Route::post('/sendResetLink', 'AuthController@sendPasswordResetLink')->name('password-reset-link.api');
+		Route::post('/confirmPasswordResetToken', 'AuthController@confirmPasswordResetToken')->name('confirm-password-reset-token.api');
+		Route::post('/reset', 'AuthController@resetPassword')->name('reset-password.api');
+	});
 });

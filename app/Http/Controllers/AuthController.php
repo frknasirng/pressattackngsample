@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Mail\PasswordReset;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\LogoutRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\SendPasswordResetMailRequest;
+use App\Http\Requests\Auth\ConfirmPasswordResetTokenRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Support\Facades\Auth;
+
+use DB;
 
 class AuthController extends Controller
 {
@@ -50,7 +55,7 @@ class AuthController extends Controller
 				200
 			);
         } else {
-			$response = [message => "Something went wrong..."];
+			$response = ['message' => "Something went wrong..."];
 			return response()->json(
 				$response,
 				422
@@ -84,17 +89,55 @@ class AuthController extends Controller
 	public function sendPasswordResetLink (SendPasswordResetMailRequest $request) {
 		$email = $request->only('email');
 
-		$user = User::where('email', $email)->get();
-
-		$token = app(Illuminate\Auth\Passwords\PasswordBroker::class)->createToken($user);
-
-		$link = env('APP_URL') . '/api/v1/password/reset/' . $token . '/email/' . urlencode($user->email);
+		$user = User::where('email', $email)->first();
 
 		try {
-			//Here send the link with CURL with an external email API 
-			return true;
+			//code...
+			$token = app('auth.password.broker')->createToken($user);
+		} catch (\Throwable $th) {
+			//throw $th;
+			return response('', 200);
+		}
+
+		$link = env('APP_URL', 'http://127.0.0.1:8000') . '/#/auth/password/reset/' . $token . '/' . urlencode($user->email);
+
+		try {
+			Mail::to($request->user())->send(new PasswordReset($link));
+			// return (new \App\Mail\PasswordReset($link))->render();
 		} catch (\Exception $e) {
-			return false;
+			return response('', 200);
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public function confirmPasswordResetToken (ConfirmPasswordResetTokenRequest $request) {
+		$email = $request->only('email');
+		$token = $request->only('token');
+
+		$user = User::where('email', $email)->get();
+
+		// Validate the token
+		$tokenData = DB::table('password_resets')
+						->where('token', $token)->first();
+		
+		if (!$tokenData) {
+			return response()->json(
+				[
+					'valid' => 'true',
+					'message' => 'Token is valid'
+				],
+				200
+			);
+		} else {
+			return response()->json(
+				[
+					'valid' => 'false',
+					'message' => 'Token is invalid'
+				],
+				422
+			);
 		}
 	}
 
@@ -105,17 +148,22 @@ class AuthController extends Controller
 		$email = $request->only('email');
 		$password = Hash::make($request['password']);
 
-		$user = User::where('email', $email)->get();
+		$user = User::where('email', $email)->first();
 
 		$user->password = $password;
 
 		if ($user->save()) {
+			$deleted = DB::delete('delete from password_resets where email = :email', ['email' => $request['email']]);
+
 			return response()->json(
-				[$message => 'Password changed successfully'],
+				[
+					'message' => 'Password changed successfully',
+					'deleted' => $deleted
+				],
 				200
 			);
 		} else {
-			$response = [message => "Something went wrong..."];
+			$response = ['message' => "Something went wrong..."];
 			return response()->json(
 				$response,
 				422

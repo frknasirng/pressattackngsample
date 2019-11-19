@@ -37830,6 +37830,41 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   /**
+   * 
+   * @param {*} email 
+   */
+  sendPasswordResetLink: function sendPasswordResetLink(email) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/password/sendResetLink', {
+      email: email
+    });
+  },
+
+  /**
+   * 
+   * @param {*} email 
+   * @param {*} token 
+   */
+  confirmPasswordResetToken: function confirmPasswordResetToken(email, token) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/password/confirmPasswordResetToken', {
+      email: email,
+      token: token
+    });
+  },
+
+  /**
+   * 
+   * @param {*} email 
+   * @param {*} password 
+   */
+  resetPassword: function resetPassword(email, password, password_confirmation) {
+    return axios.post(_config_js__WEBPACK_IMPORTED_MODULE_0__["CONFIG"].API_URL + '/password/reset', {
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    });
+  },
+
+  /**
    * GET /api/v1/users
    */
   getUsers: function getUsers() {
@@ -38113,6 +38148,12 @@ var user = {
     registerResponse: {},
     logoutLoadStatus: 0,
     logoutResponse: {},
+    sendPasswordResetLinkLoadStatus: 0,
+    sendPasswordResetLinkResponse: {},
+    confirmPasswordResetTokenLoadStatus: 0,
+    confirmPasswordResetTokenResponse: {},
+    resetPasswordLoadStatus: 0,
+    resetPasswordResponse: {},
     users: {},
     usersLoadStatus: 0,
     userPagination: {},
@@ -38165,8 +38206,41 @@ var user = {
         commit('setLogoutResponse', response);
       });
     },
-    loadUsers: function loadUsers(_ref4, data) {
+    sendPasswordResetLink: function sendPasswordResetLink(_ref4, data) {
       var commit = _ref4.commit;
+      commit('setSendPasswordResetLinkLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].sendPasswordResetLink(data.email).then(function (response) {
+        commit('setSendPasswordResetLinkLoadStatus', 2);
+        commit('setSendPasswordResetLinkResponse', response);
+      })["catch"](function (response) {
+        commit('setSendPasswordResetLinkLoadStatus', 3);
+        commit('setSendPasswordResetLinkResponse', response);
+      });
+    },
+    confirmPasswordResetToken: function confirmPasswordResetToken(_ref5, data) {
+      var commit = _ref5.commit;
+      commit('setConfirmPasswordResetTokenLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].confirmPasswordResetToken(data.email, data.token).then(function (response) {
+        commit('setConfirmPasswordResetTokenLoadStatus', 2);
+        commit('setConfirmPasswordResetTokenResponse', response);
+      })["catch"](function (response) {
+        commit('setConfirmPasswordResetTokenLoadStatus', 3);
+        commit('setConfirmPasswordResetTokenResponse', response);
+      });
+    },
+    resetPassword: function resetPassword(_ref6, data) {
+      var commit = _ref6.commit;
+      commit('setResetPasswordLoadStatus', 1);
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].resetPassword(data.email, data.password, data.password_confirmation).then(function (response) {
+        commit('setResetPasswordLoadStatus', 2);
+        commit('setResetPasswordResponse', response);
+      })["catch"](function (response) {
+        commit('setResetPasswordLoadStatus', 3);
+        commit('setResetPasswordResponse', response);
+      });
+    },
+    loadUsers: function loadUsers(_ref7, data) {
+      var commit = _ref7.commit;
       commit('setUsersLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUsers(data.url).then(function (response) {
         commit('setUsersLoadStatus', 2);
@@ -38180,8 +38254,8 @@ var user = {
         commit('setUsers', {});
       });
     },
-    loadAuthUser: function loadAuthUser(_ref5) {
-      var commit = _ref5.commit;
+    loadAuthUser: function loadAuthUser(_ref8) {
+      var commit = _ref8.commit;
       commit('setUserLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAuthUser().then(function (response) {
         commit('setUserLoadStatus', 2);
@@ -38191,8 +38265,8 @@ var user = {
         commit('setUser', {}); // commit('setBearerToken', '');
       });
     },
-    loadAUser: function loadAUser(_ref6, data) {
-      var commit = _ref6.commit;
+    loadAUser: function loadAUser(_ref9, data) {
+      var commit = _ref9.commit;
       commit('setAUserLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAUser(data.id).then(function (response) {
         commit('setAUserLoadStatus', 2);
@@ -38202,8 +38276,8 @@ var user = {
         commit('setAUser', {});
       });
     },
-    addUser: function addUser(_ref7, data) {
-      var commit = _ref7.commit;
+    addUser: function addUser(_ref10, data) {
+      var commit = _ref10.commit;
       commit('setAddUserLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].addUser(data.name, data.email, data.password, data.role_id).then(function (response) {
         commit('setAddUserLoadStatus', 2);
@@ -38216,8 +38290,8 @@ var user = {
         });
       });
     },
-    updateUser: function updateUser(_ref8, data) {
-      var commit = _ref8.commit;
+    updateUser: function updateUser(_ref11, data) {
+      var commit = _ref11.commit;
       commit('setUpdateUserLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].updateUser(data.id, data.name, data.email, data.role_id).then(function (response) {
         commit('setUpdateUserLoadStatus', 2);
@@ -38230,8 +38304,8 @@ var user = {
         });
       });
     },
-    changeUserPassword: function changeUserPassword(_ref9, data) {
-      var commit = _ref9.commit;
+    changeUserPassword: function changeUserPassword(_ref12, data) {
+      var commit = _ref12.commit;
       commit('setChangeUserPasswordLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].changeUserPassword(data.id, data.password).then(function (response) {
         commit('setChangeUserPasswordLoadStatus', 2);
@@ -38244,8 +38318,8 @@ var user = {
         });
       });
     },
-    deleteUser: function deleteUser(_ref10, data) {
-      var commit = _ref10.commit;
+    deleteUser: function deleteUser(_ref13, data) {
+      var commit = _ref13.commit;
       commit('setDeleteUserLoadStatus', 1);
       _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteUser(data.id).then(function (response) {
         commit('setDeleteUserLoadStatus', 2);
@@ -38335,6 +38409,24 @@ var user = {
     },
     setBearerToken: function setBearerToken(state, token) {
       state.bearerToken = token;
+    },
+    setSendPasswordResetLinkLoadStatus: function setSendPasswordResetLinkLoadStatus(state, status) {
+      state.sendPasswordResetLinkLoadStatus = status;
+    },
+    setSendPasswordResetLinkResponse: function setSendPasswordResetLinkResponse(state, response) {
+      state.sendPasswordResetLinkResponse = response;
+    },
+    setConfirmPasswordResetTokenLoadStatus: function setConfirmPasswordResetTokenLoadStatus(state, status) {
+      state.confirmPasswordResetTokenLoadStatus = status;
+    },
+    setConfirmPasswordResetTokenResponse: function setConfirmPasswordResetTokenResponse(state, response) {
+      state.confirmPasswordResetTokenResponse = response;
+    },
+    setResetPasswordLoadStatus: function setResetPasswordLoadStatus(state, status) {
+      state.resetPasswordLoadStatus = status;
+    },
+    setResetPasswordResponse: function setResetPasswordResponse(state, response) {
+      state.resetPasswordResponse = response;
     }
   },
   getters: {
@@ -38403,6 +38495,24 @@ var user = {
     },
     getBearerToken: function getBearerToken(state) {
       return state.bearerToken;
+    },
+    getSendPasswordResetLinkLoadStatus: function getSendPasswordResetLinkLoadStatus(state) {
+      return state.sendPasswordResetLinkLoadStatus;
+    },
+    getSendPasswordResetLinkResponse: function getSendPasswordResetLinkResponse(state) {
+      return state.sendPasswordResetLinkResponse;
+    },
+    getConfirmPasswordResetTokenLoadStatus: function getConfirmPasswordResetTokenLoadStatus(state) {
+      return state.confirmPasswordResetTokenLoadStatus;
+    },
+    getConfirmPasswordResetTokenResponse: function getConfirmPasswordResetTokenResponse(state) {
+      return state.confirmPasswordResetTokenResponse;
+    },
+    getResetPasswordLoadStatus: function getResetPasswordLoadStatus(state) {
+      return state.resetPasswordLoadStatus;
+    },
+    getResetPasswordResponse: function getResetPasswordResponse(state) {
+      return state.resetPasswordResponse;
     }
   }
 };
@@ -38458,12 +38568,14 @@ router.beforeEach(function (to, from, next) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _guard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./guard */ "./resources/js/router/routes/guard.js");
+/* harmony import */ var _api_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../api/user */ "./resources/js/api/user.js");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   path: '/auth',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
+      return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ./../../pages/Auth.vue */ "./resources/js/pages/Auth.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -38475,7 +38587,7 @@ __webpack_require__.r(__webpack_exports__);
     name: 'auth.login',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
+        return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./../../components/auth/Login.vue */ "./resources/js/components/auth/Login.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -38486,7 +38598,40 @@ __webpack_require__.r(__webpack_exports__);
     name: 'auth.register',
     components: {
       "default": function _default() {
-        return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
+        return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ./../../components/auth/Register.vue */ "./resources/js/components/auth/Register.vue"));
+      },
+      header: function header() {
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+      }
+    }
+  }, {
+    path: 'forgot-password',
+    name: 'auth.forgot-password',
+    components: {
+      "default": function _default() {
+        return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./../../components/auth/ForgotPassword.vue */ "./resources/js/components/auth/ForgotPassword.vue"));
+      },
+      header: function header() {
+        return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
+      }
+    }
+  }, {
+    path: 'password/reset/:token/:email',
+    name: 'auth.reset-password',
+    beforeEnter: function beforeEnter(to, from, next) {
+      _api_user__WEBPACK_IMPORTED_MODULE_1__["default"].confirmPasswordResetToken(to.params.email, to.params.token).then(function (response) {
+        if (response.status === 200) {
+          next();
+        } else {
+          next(from.path);
+        }
+      })["catch"](function (response) {
+        next(from.path);
+      });
+    },
+    components: {
+      "default": function _default() {
+        return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../../components/auth/ResetPassword.vue */ "./resources/js/components/auth/ResetPassword.vue"));
       },
       header: function header() {
         return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));
@@ -38612,7 +38757,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'home',
   components: {
     "default": function _default() {
-      return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
+      return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ./../../pages/Home.vue */ "./resources/js/pages/Home.vue"));
     },
     header: function header() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./../../components/global/NavComponent.vue */ "./resources/js/components/global/NavComponent.vue"));

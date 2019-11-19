@@ -1,5 +1,6 @@
 <template>
-	<form class="mt-12">
+	<form class="mt-7">
+		<h1 class="text-center text-lg text-gray-800 m-5">Login</h1>
 		<div 
 			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" 
 			role="alert"
@@ -35,7 +36,7 @@
 		<div class="md:flex md:items-center mb-6">
 			<div class="md:w-1/3"></div>
 			<label class="md:w-2/3 block text-gray-500 font-bold">
-				<router-link to="#" class="text-sm underline">
+				<router-link to="/auth/forgot-password" class="text-sm underline">
 					i forgot my password?
 				</router-link>
 			</label>
@@ -98,7 +99,8 @@ export default {
 				});
 			} else if (val === 3) {
 				if (this.loginResponse.message) {
-					this.errors.push(this.loginResponse.message);
+					console.log(this.loginResponse);
+					this.errors.push("Username/Password mismatch");
 				} else {
 					this.errors.push("...an unknown error was encountered.");
 				}

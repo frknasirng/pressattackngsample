@@ -15,6 +15,12 @@ export const user = {
 		registerResponse: {},
 		logoutLoadStatus: 0,
 		logoutResponse: {},
+		sendPasswordResetLinkLoadStatus: 0,
+		sendPasswordResetLinkResponse: {},
+		confirmPasswordResetTokenLoadStatus: 0,
+		confirmPasswordResetTokenResponse: {},
+		resetPasswordLoadStatus: 0,
+		resetPasswordResponse: {},
         users: {},
         usersLoadStatus: 0,
         userPagination: {},
@@ -73,6 +79,48 @@ export const user = {
 			}).catch((response) => {
 				commit('setLogoutLoadStatus', 3);
 				commit('setLogoutResponse', response);
+			});
+		},
+		sendPasswordResetLink({commit}, data) {
+			commit('setSendPasswordResetLinkLoadStatus', 1);
+
+			UserAPI.sendPasswordResetLink(
+				data.email
+			).then((response) => {
+				commit('setSendPasswordResetLinkLoadStatus', 2);
+				commit('setSendPasswordResetLinkResponse', response);
+			}).catch((response) => {
+				commit('setSendPasswordResetLinkLoadStatus', 3);
+				commit('setSendPasswordResetLinkResponse', response);
+			});
+		},
+		confirmPasswordResetToken({commit}, data) {
+			commit('setConfirmPasswordResetTokenLoadStatus', 1);
+
+			UserAPI.confirmPasswordResetToken(
+				data.email,
+				data.token
+			).then((response) => {
+				commit('setConfirmPasswordResetTokenLoadStatus', 2);
+				commit('setConfirmPasswordResetTokenResponse', response);
+			}).catch((response) => {
+				commit('setConfirmPasswordResetTokenLoadStatus', 3);
+				commit('setConfirmPasswordResetTokenResponse', response);
+			});
+		},
+		resetPassword({ commit }, data) {
+			commit('setResetPasswordLoadStatus', 1);
+
+			UserAPI.resetPassword(
+				data.email,
+				data.password,
+				data.password_confirmation
+			).then((response) => {
+				commit('setResetPasswordLoadStatus', 2);
+				commit('setResetPasswordResponse', response);
+			}).catch((response) => {
+				commit('setResetPasswordLoadStatus', 3);
+				commit('setResetPasswordResponse', response);
 			});
 		},
         loadUsers({ commit }, data) {
@@ -270,6 +318,24 @@ export const user = {
 		},
 		setBearerToken(state, token) {
 			state.bearerToken = token;
+		},
+		setSendPasswordResetLinkLoadStatus(state, status) {
+			state.sendPasswordResetLinkLoadStatus = status;
+		},
+		setSendPasswordResetLinkResponse(state, response) {
+			state.sendPasswordResetLinkResponse = response;
+		},
+		setConfirmPasswordResetTokenLoadStatus(state, status) {
+			state.confirmPasswordResetTokenLoadStatus = status;
+		},
+		setConfirmPasswordResetTokenResponse(state, response) {
+			state.confirmPasswordResetTokenResponse = response;
+		},
+		setResetPasswordLoadStatus(state, status) {
+			state.resetPasswordLoadStatus = status;
+		},
+		setResetPasswordResponse(state, response) {
+			state.resetPasswordResponse = response;
 		}
     },
     getters: {
@@ -338,6 +404,24 @@ export const user = {
         },
 		getBearerToken(state) {
 			return state.bearerToken;
+		},
+		getSendPasswordResetLinkLoadStatus(state) {
+			return state.sendPasswordResetLinkLoadStatus;
+		},
+		getSendPasswordResetLinkResponse(state) {
+			return state.sendPasswordResetLinkResponse;
+		},
+		getConfirmPasswordResetTokenLoadStatus(state) {
+			return state.confirmPasswordResetTokenLoadStatus;
+		},
+		getConfirmPasswordResetTokenResponse(state) {
+			return state.confirmPasswordResetTokenResponse;
+		},
+		getResetPasswordLoadStatus(state) {
+			return state.resetPasswordLoadStatus;
+		},
+		getResetPasswordResponse(state) {
+			return state.resetPasswordResponse;
 		}
     }
 };
