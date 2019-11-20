@@ -94,6 +94,12 @@ class AuthController extends Controller
 		try {
 			//code...
 			$token = app('auth.password.broker')->createToken($user);
+
+			//Create Password Reset Token
+			DB::table('password_resets')->insert([
+				'email' => $user->email,
+				'token' => $token
+			]);
 		} catch (\Throwable $th) {
 			//throw $th;
 			return response('', 200);
@@ -102,8 +108,14 @@ class AuthController extends Controller
 		$link = env('APP_URL', 'http://127.0.0.1:8000') . '/#/auth/password/reset/' . $token . '/' . urlencode($user->email);
 
 		try {
-			Mail::to($request->user())->send(new PasswordReset($link));
-			// return (new \App\Mail\PasswordReset($link))->render();
+			// Mail::to($request->user())->send(new PasswordReset($link));
+			// return response()->json(
+			// 	[
+			// 		'message' => 'Token created successfully'
+			// 	],
+			// 	200
+			// );
+			return (new \App\Mail\PasswordReset($link))->render();
 		} catch (\Exception $e) {
 			return response('', 200);
 		}
@@ -122,7 +134,7 @@ class AuthController extends Controller
 		$tokenData = DB::table('password_resets')
 						->where('token', $token)->first();
 		
-		if (!$tokenData) {
+		if ($tokenData) {
 			return response()->json(
 				[
 					'valid' => 'true',
@@ -153,12 +165,11 @@ class AuthController extends Controller
 		$user->password = $password;
 
 		if ($user->save()) {
-			$deleted = DB::delete('delete from password_resets where email = :email', ['email' => $request['email']]);
+			DB::table('password_resets')->where('email', $user->email)->delete();
 
 			return response()->json(
 				[
-					'message' => 'Password changed successfully',
-					'deleted' => $deleted
+					'message' => 'Password changed successfully'
 				],
 				200
 			);

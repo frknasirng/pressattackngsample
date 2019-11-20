@@ -73,7 +73,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
-  created: function created() {},
+  created: function created() {
+    this.$store.commit('setResetPasswordResponse', {});
+  },
   data: function data() {
     return {
       credentials: {

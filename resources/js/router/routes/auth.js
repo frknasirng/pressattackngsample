@@ -62,7 +62,7 @@ export default {
 				default: () =>
 					import ('./../../components/auth/ResetPassword.vue'),
 				header: () => 
-				import ('./../../components/global/NavComponent.vue')
+					import ('./../../components/global/NavComponent.vue')
 			}
 		}
 	]

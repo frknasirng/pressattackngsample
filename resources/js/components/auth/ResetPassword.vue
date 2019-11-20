@@ -65,7 +65,7 @@ export default {
 
 	},
 	created () {
-
+		this.$store.commit('setResetPasswordResponse', {});
 	},
 	data () {
 		return {
