@@ -10,9 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Auth\Passwords\CanResetPassword;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable implements CanResetPasswordContract
 {
-    use HasApiTokens, Notifiable, CanResetPassword;
+    use HasApiTokens, Notifiable, CanResetPassword, HasRoles;
 
     /**
      * The attributes that are mass assignable.

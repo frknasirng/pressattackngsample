@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
     /**
      * End User Routes
      */
+
+	Route::resource('roles', 'RoleController');
 });
 
 /**

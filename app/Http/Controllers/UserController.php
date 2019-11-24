@@ -9,6 +9,7 @@ use App\Http\Requests\User\UpdateRequest;
 use App\Http\Requests\User\DelRequest;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class UserController extends Controller {
@@ -18,7 +19,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index () {
-        $users = User::paginate();
+        $users = User::latest()->paginate();
         return UserResource::collection($users);
 	}
 	
@@ -27,15 +28,7 @@ class UserController extends Controller {
         
         return new UserResource($user);
 	}
-	
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create () {
-        //
-    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,12 +36,16 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store (NewRequest $request) {
-        $user = new User();
+		$user = new User();
+		
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+		$user->password = Hash::make($request->input('password'));
+		
         if($user->save()) {
-            $user->roles()->attach($request->input('role_id'));
+            // Handle the user roles
+			$this->syncPermissions($request, $user);
+
             return response()->json([
                 'success' => 1,
                 'message' => 'user added successfully'
@@ -68,16 +65,6 @@ class UserController extends Controller {
 	}
 	
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user) {
-        //
-	}
-	
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -85,19 +72,22 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request) {
-        $user = User::findOrFail($request->input('id'));
+		$user = User::findOrFail($request->input('id'));
+		
         $user->name = $request->input('name');
-        $user->email = $request->input('email');
+		$user->email = $request->input('email');
+
+		// Handle the user roles
+		$this->syncPermissions($request, $user);
+		
         if($user->save()) {
-            //Detach all roles from the user...
-            $user->roles()->detach();
-            $user->roles()->attach($request->input('role_id'));
             return response()->json([
                 'success' => 1,
                 'message' => 'user updated successfully'
             ]);
         }
-    }
+	}
+	
     public function changeUserPassword(ChangePasswordRequest $request) {
         $user = User::findOrFail($request->input('id'));
         $user->password = bcrypt($request->input('password'));
@@ -107,7 +97,8 @@ class UserController extends Controller {
                 'message' => 'user password changed successfully'
             ]);
         }
-    }
+	}
+	
     /**
      * Remove the specified resource from storage.
      *
@@ -115,6 +106,13 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(DelRequest $request) {
+		if ( Auth::user()->id === $request->input('id') ) {
+			return response()->json([
+                'success' => 0,
+                'message' => 'currently logged in user can not be deleted'
+            ], 422);
+		}
+
         $user = User::findOrFail($request->input('id'));
         $user->roles()->detach();
         
@@ -124,5 +122,27 @@ class UserController extends Controller {
                 'message' => 'user deleted successfully'
             ]);
         }
-    }
+	}
+	
+	private function syncPermissions(Request $request, $user) {
+		// Get the submitted roles
+		$roles = $request->get('roles', []);
+		$permissions = $request->get('permissions', []);
+
+		// Get the roles
+		$roles = Role::find($roles);
+
+		// check for current role changes
+		if( ! $user->hasAllRoles( $roles ) ) {
+			// reset all direct permissions for user
+			$user->permissions()->sync([]);
+		} else {
+			// handle permissions
+			$user->syncPermissions($permissions);
+		}
+
+		$user->syncRoles($roles);
+
+		return $user;
+	}
 }
