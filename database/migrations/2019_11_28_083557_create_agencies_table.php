@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParastatalsTable extends Migration
+class CreateAgenciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateParastatalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('parastatals', function (Blueprint $table) {
+        Schema::create('agencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('hq')->nullable();
@@ -22,7 +22,6 @@ class CreateParastatalsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('website')->nullable();
             $table->string('description')->nullable();
-            $table->unsignedInteger('parastatal_type_id');
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ class CreateParastatalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parastatals');
+        Schema::dropIfExists('agencies');
     }
 }

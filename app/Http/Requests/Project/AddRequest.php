@@ -13,7 +13,7 @@ class AddRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'allocation' => 'required',
+            'project_status' => 'required'
         ];
     }
 }

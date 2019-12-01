@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\ParastatalType;
+use App\Ministry;
 use Faker\Generator as Faker;
 
-$factory->define(ParastatalType::class, function (Faker $faker) {
+$factory->define(Ministry::class, function (Faker $faker) {
     return [
         //
     ];

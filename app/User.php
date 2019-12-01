@@ -12,6 +12,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Project;
+
 class User extends Authenticatable implements CanResetPasswordContract
 {
     use HasApiTokens, Notifiable, CanResetPassword, HasRoles;
@@ -42,4 +44,13 @@ class User extends Authenticatable implements CanResetPasswordContract
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relationships
+    public function bookmarks () {
+        return $this->belongsToMany(Project::class, "project_user", "user_id", "project_id");
+    }
+
+    public function projects () {
+        return $this->hasMany(Project::class);
+    }
 }

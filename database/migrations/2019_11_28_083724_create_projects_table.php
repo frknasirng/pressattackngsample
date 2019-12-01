@@ -19,10 +19,10 @@ class CreateProjectsTable extends Migration
             $table->string('description');
             $table->bigInteger('allocation');
             $table->unsignedInteger('agency_id')->nullable();
-            $table->increments('ministry_id')->nullable();
+            $table->unsignedInteger('ministry_id')->nullable();
             $table->date('date_commissioned')->nullable();
-            $table->string('location_type');
-            $table->unsignedInteger('location_id');
+            $table->string('location_type')->nullable();
+            $table->unsignedInteger('location_id')->nullable();
             $table->unsignedInteger('project_status_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();

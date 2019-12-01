@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ProjectType;
+use App\Http\Requests\ProjectType\AddRequest;
+use App\Http\Requests\ProjectType\UpdateRequest;
+use App\Http\Requests\ProjectType\DeleteRequest;
+use App\Http\Resources\ProjectTypeResource;
 use Illuminate\Http\Request;
 
 class ProjectTypeController extends Controller
@@ -14,17 +18,9 @@ class ProjectTypeController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $projectTypes = ProjectType::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ProjectTypeResource::collection($projectTypes);
     }
 
     /**
@@ -33,9 +29,30 @@ class ProjectTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
-        //
+        $projectType = new ProjectType();
+
+        $projectType->name = $request->input('name');
+
+        if ($projectType->save()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "added successfully",
+                    "projectType" => $projectType
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 
     /**
@@ -44,20 +61,11 @@ class ProjectTypeController extends Controller
      * @param  \App\ProjectType  $projectType
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectType $projectType)
+    public function show($id)
     {
-        //
-    }
+        $projectType = ProjectType::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProjectType  $projectType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProjectType $projectType)
-    {
-        //
+        return new ProjectTypeResource($projectType);
     }
 
     /**
@@ -67,9 +75,28 @@ class ProjectTypeController extends Controller
      * @param  \App\ProjectType  $projectType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectType $projectType)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $projectType = ProjectType::findOrFail($id);
+
+        if ($projectType->save()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "udpated successfully",
+                    "projectType" => $projectType
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 
     /**
@@ -78,8 +105,26 @@ class ProjectTypeController extends Controller
      * @param  \App\ProjectType  $projectType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectType $projectType)
+    public function destroy(DelereRequest $request)
     {
-        //
+        $projectType = ProjectType::findOrFail($request->input('id'));
+
+        if ($projectType->delete()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "Deleted successfully"
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 }

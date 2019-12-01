@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Thread;
+namespace App\Http\Requests\Agency;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-            'description' => 'required'
+            "id" => "required",
+            "name" => "required"
         ];
     }
 }

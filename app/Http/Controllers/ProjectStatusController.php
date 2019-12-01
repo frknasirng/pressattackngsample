@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ProjectStatus;
+use App\Http\Requests\ProjectStatus\AddRequest;
+use App\Http\Requests\ProjectStatus\UpdateRequest;
+use App\Http\Requests\ProjectStatus\DeleteRequest;
+use App\Http\Resources\ProjectStatusResource;
 use Illuminate\Http\Request;
 
 class ProjectStatusController extends Controller
@@ -14,17 +18,9 @@ class ProjectStatusController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $projectStatuses = ProjectStatus::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ProjectStatusResource::collection($projectStatuses);
     }
 
     /**
@@ -33,9 +29,30 @@ class ProjectStatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
-        //
+        $projectStatus = new ProjectStatus();
+
+        $projectStatus->name = $request->input('name');
+
+        if ($projectStatus->save()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "added successfully",
+                    "projectStatus" => $projectStatus
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 
     /**
@@ -44,20 +61,11 @@ class ProjectStatusController extends Controller
      * @param  \App\ProjectStatus  $projectStatus
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectStatus $projectStatus)
+    public function show($id)
     {
-        //
-    }
+        $projectStatus = ProjectStatus::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ProjectStatus  $projectStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProjectStatus $projectStatus)
-    {
-        //
+        return new ProjectStatusResource($projectStatus);
     }
 
     /**
@@ -67,9 +75,28 @@ class ProjectStatusController extends Controller
      * @param  \App\ProjectStatus  $projectStatus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectStatus $projectStatus)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $projectStatus = ProjectStatus::findOrFail($id);
+
+        if ($projectStatus->save()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "udpated successfully",
+                    "projectStatus" => $projectStatus
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 
     /**
@@ -78,8 +105,26 @@ class ProjectStatusController extends Controller
      * @param  \App\ProjectStatus  $projectStatus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectStatus $projectStatus)
+    public function destroy(DelereRequest $request)
     {
-        //
+        $projectStatus = ProjectStatus::findOrFail($request->input('id'));
+
+        if ($projectStatus->delete()) {
+			return response()->json(
+				[
+                    "success" => 1,
+                    "message" => "Deleted successfully"
+                ],
+				200
+			);
+        } else {
+            return response()->json(
+				[
+                    "success" => 0,
+                    "message" => "Something went wrong..."
+                ],
+				500
+			);
+        }
     }
 }

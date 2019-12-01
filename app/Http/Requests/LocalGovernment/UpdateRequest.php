@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ParastatalType;
+namespace App\Http\Requests\LocalGovernment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class DeleteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class DeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "latitude" => "required",
+            "longitude" => "required"
         ];
     }
 }

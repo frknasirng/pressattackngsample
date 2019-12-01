@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\Thread\AddRequest;
+use App\Http\Requests\Thread\UpdateRequest;
+use App\Http\Requests\Thread\DeleteRequest;
+use App\Http\Resources\ThreadResource;
 
 class ThreadController extends Controller
 {
@@ -12,19 +17,12 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($projectId)
     {
-        //
-    }
+        $project = Project::findOrFail($projectId);
+        $threads = $project->threads()->paginate();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ThreadResource::collection($threads);
     }
 
     /**
@@ -33,9 +31,25 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
-        //
+        $thread = new Thread();
+
+        $thread->description = $request->input('description');
+        $thread->user_id = $request->input('user_id');
+        $thread->project_id = $request->input('project_id');
+
+        if ($thread->save()) {
+            return response()->json([
+                'success' => 1,
+                'message' => "added successfully"
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'message' => 'something went wrong'
+            ], 500);
+        }
     }
 
     /**
@@ -44,20 +58,11 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($id)
     {
-        //
-    }
+        $thread = Thread::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Thread $thread)
-    {
-        //
+        return new ThreadResource($thread);
     }
 
     /**
@@ -67,9 +72,23 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $thread = Thread::findOrFail($id);
+
+        $thread->description = $request->input('description');
+
+        if ($thread->save()) {
+            return response()->json([
+                'success' => 1,
+                'message' => "updated successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'message' => 'something went wrong'
+            ], 500);
+        }
     }
 
     /**
@@ -78,8 +97,20 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy(DeleteRequest $request)
     {
-        //
+        $thread = Thread::findOrFail($request->input('id'));
+
+        if ($thread->delete()) {
+            return response()->json([
+                'success' => 1,
+                'message' => "deleted successfully"
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'message' => 'something went wrong'
+            ], 500);
+        }
     }
 }

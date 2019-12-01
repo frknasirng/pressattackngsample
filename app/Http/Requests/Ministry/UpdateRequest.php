@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\ParastatalType;
+namespace App\Http\Requests\Ministry;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class AddRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "id" => "required",
+            "name" => "required"
         ];
     }
 }

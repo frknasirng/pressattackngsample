@@ -12,30 +12,11 @@ class LocalGovernmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($stateId)
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $state = State::findOrFail($stateId);
+        $localGovernments = $state->localGovernments;
+        return LocalGovernmentResource::collection($localGovernments);
     }
 
     /**
@@ -44,20 +25,10 @@ class LocalGovernmentController extends Controller
      * @param  \App\LocalGovernment  $localGovernment
      * @return \Illuminate\Http\Response
      */
-    public function show(LocalGovernment $localGovernment)
+    public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\LocalGovernment  $localGovernment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(LocalGovernment $localGovernment)
-    {
-        //
+        $localGovernment = LocalGovernment::findOrFail($id);
+        return new LocalGovernmentResource($localGovernment);
     }
 
     /**
@@ -67,19 +38,22 @@ class LocalGovernmentController extends Controller
      * @param  \App\LocalGovernment  $localGovernment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, LocalGovernment $localGovernment)
+    public function update(UpdateRequest $request)
     {
-        //
-    }
+        $localGovernment = LocalGovernment::findOrFail($request->input('id'));
+        $localGovernment->latitude = $request->input('latitude');
+        $localGovernment->longitude = $request->input('longitude');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\LocalGovernment  $localGovernment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(LocalGovernment $localGovernment)
-    {
-        //
+        if($localGovernment->save()) {
+            return response()->json([
+                'success' => 1,
+                'message' => 'local government updated successfully'
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'message' => 'something went wrong...'
+            ], 500);
+        }
     }
 }

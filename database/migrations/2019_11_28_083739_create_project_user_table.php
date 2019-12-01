@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParastatalTypesTable extends Migration
+class CreateProjectUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateParastatalTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('parastatal_types', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');      
+            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateParastatalTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parastatal_types');
+        Schema::dropIfExists('project_user');
     }
 }
