@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Project;
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookmarkResource extends JsonResource
@@ -14,6 +16,12 @@ class BookmarkResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $default = parent::toArray($request);
+        $extras = [
+            "project" => Project::findOrFail($this->project_id),
+            "user" => User::findOrFail($this->user_id)
+        ];
+
+        return array_merge($default, $extras);
     }
 }

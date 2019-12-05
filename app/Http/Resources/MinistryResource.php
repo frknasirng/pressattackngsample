@@ -14,6 +14,11 @@ class MinistryResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $default = parent::toArray($request);
+        $extras = [
+            "projects" => $this->projects()->latest()->paginate()
+        ];
+
+        return array_merge($default, $extras);
     }
 }

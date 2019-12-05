@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Thread;
+use App\ThreadPost;
 use App\Project;
 use Illuminate\Http\Request;
-use App\Http\Requests\Thread\AddRequest;
-use App\Http\Requests\Thread\UpdateRequest;
-use App\Http\Requests\Thread\DeleteRequest;
-use App\Http\Resources\ThreadResource;
+use App\Http\Requests\ThreadPost\AddRequest;
+use App\Http\Requests\ThreadPost\UpdateRequest;
+use App\Http\Requests\ThreadPost\DeleteRequest;
+use App\Http\Resources\ThreadPostResource;
 
-class ThreadController extends Controller
+class ThreadPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,9 @@ class ThreadController extends Controller
     public function index($projectId)
     {
         $project = Project::findOrFail($projectId);
-        $threads = $project->threads()->paginate();
+        $threadPosts = $project->threadPosts()->paginate();
 
-        return ThreadResource::collection($threads);
+        return ThreadPostResource::collection($threadPosts);
     }
 
     /**
@@ -33,13 +33,13 @@ class ThreadController extends Controller
      */
     public function store(AddRequest $request)
     {
-        $thread = new Thread();
+        $threadPost = new ThreadPost();
 
-        $thread->description = $request->input('description');
-        $thread->user_id = $request->input('user_id');
-        $thread->project_id = $request->input('project_id');
+        $threadPost->description = $request->input('description');
+        $threadPost->user_id = $request->input('user_id');
+        $threadPost->project_id = $request->input('project_id');
 
-        if ($thread->save()) {
+        if ($threadPost->save()) {
             return response()->json([
                 'success' => 1,
                 'message' => "added successfully"
@@ -55,30 +55,30 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\ThreadPost  $threadPost
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $thread = Thread::findOrFail($id);
+        $threadPost = ThreadPost::findOrFail($id);
 
-        return new ThreadResource($thread);
+        return new ThreadPostResource($threadPost);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
+     * @param  \App\ThreadPost  $threadPost
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, $id)
     {
-        $thread = Thread::findOrFail($id);
+        $threadPost = ThreadPost::findOrFail($id);
 
-        $thread->description = $request->input('description');
+        $threadPost->description = $request->input('description');
 
-        if ($thread->save()) {
+        if ($threadPost->save()) {
             return response()->json([
                 'success' => 1,
                 'message' => "updated successfully"
@@ -94,14 +94,14 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\ThreadPost  $threadPost
      * @return \Illuminate\Http\Response
      */
     public function destroy(DeleteRequest $request)
     {
-        $thread = Thread::findOrFail($request->input('id'));
+        $threadPost = ThreadPost::findOrFail($request->input('id'));
 
-        if ($thread->delete()) {
+        if ($threadPost->delete()) {
             return response()->json([
                 'success' => 1,
                 'message' => "deleted successfully"

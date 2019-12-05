@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Thread;
+namespace App\Http\Requests\ThreadPost;
 
 use Illuminate\Foundation\Http\FormRequest;
 

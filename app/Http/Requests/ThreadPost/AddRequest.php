@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Thread;
+namespace App\Http\Requests\ThreadPost;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class AddRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'user_id' => 'required',
+            'project_id' => 'required'
         ];
     }
 }

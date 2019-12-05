@@ -7,6 +7,7 @@ use App\ProjectStatus;
 use App\User;
 use App\Agency;
 use App\Ministry;
+use App\ThreadPost;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -23,7 +24,7 @@ class Project extends Model
         return $this->morphTo();
     }
 
-    public function users () {
+    public function user () {
         return $this->belongsTo(User::class);
     }
 
@@ -31,11 +32,15 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_user', 'project_id', 'user_id');
     }
 
-    public function ministries () {
+    public function ministry () {
         return $this->belongsTo(Ministry::class);
     }
 
-    public function agencies () {
+    public function agency () {
         return $this->belongsTo(Agency::class);
+    }
+
+    public function threadPosts () {
+        return $this->hasMany(ThreadPost::class);
     }
 }

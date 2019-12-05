@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ThreadResource extends JsonResource
+class ThreadPostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,11 @@ class ThreadResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $default = parent::toArray($request);
+        $extras = [
+            "project" => $this->project
+        ];
+
+        return array_merge($default, $extras);
     }
 }

@@ -14,6 +14,11 @@ class StateResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $default = parent::toArray($request);
+        $extras = [
+            "localGovernments" => $this->localGovernments
+        ];
+
+        return array_merge($default, $extras);
     }
 }

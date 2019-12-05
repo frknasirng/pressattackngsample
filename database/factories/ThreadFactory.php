@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Thread;
+use App\ThreadPost;
 use Faker\Generator as Faker;
 
-$factory->define(Thread::class, function (Faker $faker) {
+$factory->define(ThreadPost::class, function (Faker $faker) {
     return [
         //
     ];
