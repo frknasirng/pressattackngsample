@@ -4,7 +4,7 @@
 		class="mt-7">
 		<h1 class="text-center text-lg text-gray-800 m-5">Register</h1>
 		<div 
-			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" 
+			class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" 
 			role="alert"
 			v-if="errors.length">
 			<strong class="font-bold">The following error(s) were encountered:</strong>
@@ -62,7 +62,7 @@
 					Register
 				</button>
 			</div>
-			<clip-loader v-else :loading="loading" color="#38b2ac" size="20px"></clip-loader>
+			<clip-loader v-else :loading="true" color="#38b2ac" size="20px"></clip-loader>
 		</div>
 	</form>
 </template>

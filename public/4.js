@@ -18,9 +18,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -77,55 +74,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "relative mr-4" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
-      },
-      [
-        _c(
-          "svg",
-          {
-            staticClass: "fill-current h-4 w-4",
-            attrs: { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 20 20" }
-          },
-          [
-            _c("path", {
-              attrs: {
-                d:
-                  "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              }
-            })
-          ]
-        )
-      ]
-    )
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "select",
-      {
-        staticClass:
-          "appearance-none block bg-transparent pl-2 pr-2 py-1 text-gray-500 font-medium text-base focus:outline-none focus:text-gray-800",
-        attrs: { "data-version-switcher": "" }
-      },
-      [
-        _c("option", { attrs: { value: "v1" } }, [_vm._v("Capital Projects")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "v0" } }, [
-          _vm._v("Constituency Projects")
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "static mr-4" }, [
+      _c(
+        "select",
+        {
+          staticClass:
+            "block text-gray-500 text-base focus:outline-none focus:text-gray-800 h-12 w-full",
+          attrs: { "data-version-switcher": "" }
+        },
+        [
+          _c("option", { attrs: { value: "v1" } }, [
+            _vm._v("Capital Projects")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "v0" } }, [
+            _vm._v("Constituency Projects")
+          ])
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
