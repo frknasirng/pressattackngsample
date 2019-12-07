@@ -38,9 +38,9 @@ class LocalGovernmentController extends Controller
      * @param  \App\LocalGovernment  $localGovernment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, $id)
     {
-        $localGovernment = LocalGovernment::findOrFail($request->input('id'));
+        $localGovernment = LocalGovernment::findOrFail($id);
         $localGovernment->latitude = $request->input('latitude');
         $localGovernment->longitude = $request->input('longitude');
 

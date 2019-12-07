@@ -17,10 +17,14 @@ class ThreadPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($projectId)
+    public function index($projectId = null)
     {
-        $project = Project::findOrFail($projectId);
-        $threadPosts = $project->threadPosts()->paginate();
+        if ($projectId) {
+            $project = Project::findOrFail($projectId);
+            $threadPosts = $project->threadPosts()->paginate();
+        } else {
+            $threadPosts = ThreadPost::latest()->paginate();
+        }
 
         return ThreadPostResource::collection($threadPosts);
     }
