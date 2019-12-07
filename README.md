@@ -8,6 +8,18 @@ an open source citizen-oriented solution for tracking government projects.
 
 ## Installation
 
+### JS
+
+Install npm packages
+
+	npm install
+
+Compiler .vue files
+
+	npm run dev
+    
+### Laravel
+
 Please check the official laravel installation guide for server requirements before you start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
 
 
@@ -56,15 +68,6 @@ Run the database seeder and you're done
 ***Note*** : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
 
     php artisan migrate:refresh
-
-
-Install npm packages
-
-	npm install
-
-Compiler .vue files
-
-	npm run dev
 
 
 ----------
