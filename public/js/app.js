@@ -38242,46 +38242,50 @@ var user = {
     loadUsers: function loadUsers(_ref7, data) {
       var commit = _ref7.commit;
       commit('setUsersLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUsers(data.url).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getUsers(data.url).then(function (_ref8) {
+        var data = _ref8.data;
         commit('setUsersLoadStatus', 2);
-        commit('setUsers', response.data.data);
+        commit('setUsers', data);
         commit('setUserPagination', {
-          meta: response.data.meta,
-          links: response.data.links
+          meta: data.meta,
+          links: data.links
         });
       })["catch"](function () {
         commit('setUsersLoadStatus', 3);
         commit('setUsers', {});
       });
     },
-    loadAuthUser: function loadAuthUser(_ref8) {
-      var commit = _ref8.commit;
+    loadAuthUser: function loadAuthUser(_ref9) {
+      var commit = _ref9.commit;
       commit('setUserLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAuthUser().then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAuthUser().then(function (_ref10) {
+        var data = _ref10.data;
         commit('setUserLoadStatus', 2);
-        commit('setUser', response.data.data);
+        commit('setUser', data);
       })["catch"](function () {
         commit('setUserLoadStatus', 3);
         commit('setUser', {}); // commit('setBearerToken', '');
       });
     },
-    loadAUser: function loadAUser(_ref9, data) {
-      var commit = _ref9.commit;
+    loadAUser: function loadAUser(_ref11, data) {
+      var commit = _ref11.commit;
       commit('setAUserLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAUser(data.id).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAUser(data.id).then(function (_ref12) {
+        var data = _ref12.data;
         commit('setAUserLoadStatus', 2);
-        commit('setAUser', response.data.data);
+        commit('setAUser', data);
       })["catch"](function () {
         commit('setAUserLoadStatus', 3);
         commit('setAUser', {});
       });
     },
-    addUser: function addUser(_ref10, data) {
-      var commit = _ref10.commit;
+    addUser: function addUser(_ref13, data) {
+      var commit = _ref13.commit;
       commit('setAddUserLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].addUser(data.name, data.email, data.password, data.role_id).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].addUser(data.name, data.email, data.password, data.role_id).then(function (_ref14) {
+        var data = _ref14.data;
         commit('setAddUserLoadStatus', 2);
-        commit('setAddUserResponse', response.data);
+        commit('setAddUserResponse', data);
       })["catch"](function () {
         commit('setAddUserLoadStatus', 3);
         commit('setAddUserResponse', {
@@ -38290,12 +38294,13 @@ var user = {
         });
       });
     },
-    updateUser: function updateUser(_ref11, data) {
-      var commit = _ref11.commit;
+    updateUser: function updateUser(_ref15, data) {
+      var commit = _ref15.commit;
       commit('setUpdateUserLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].updateUser(data.id, data.name, data.email, data.role_id).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].updateUser(data.id, data.name, data.email, data.role_id).then(function (_ref16) {
+        var data = _ref16.data;
         commit('setUpdateUserLoadStatus', 2);
-        commit('setUpdateUserResponse', response.data);
+        commit('setUpdateUserResponse', data);
       })["catch"](function () {
         commit('setUpdateUserLoadStatus', 3);
         commit('setUpdateUserResponse', {
@@ -38304,12 +38309,13 @@ var user = {
         });
       });
     },
-    changeUserPassword: function changeUserPassword(_ref12, data) {
-      var commit = _ref12.commit;
+    changeUserPassword: function changeUserPassword(_ref17, data) {
+      var commit = _ref17.commit;
       commit('setChangeUserPasswordLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].changeUserPassword(data.id, data.password).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].changeUserPassword(data.id, data.password).then(function (_ref18) {
+        var data = _ref18.data;
         commit('setChangeUserPasswordLoadStatus', 2);
-        commit('setChangeUserPasswordResponse', response.data);
+        commit('setChangeUserPasswordResponse', data);
       })["catch"](function () {
         commit('setChangeUserPasswordLoadStatus', 3);
         commit('setChangeUserPasswordResponse', {
@@ -38318,12 +38324,13 @@ var user = {
         });
       });
     },
-    deleteUser: function deleteUser(_ref13, data) {
-      var commit = _ref13.commit;
+    deleteUser: function deleteUser(_ref19, data) {
+      var commit = _ref19.commit;
       commit('setDeleteUserLoadStatus', 1);
-      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteUser(data.id).then(function (response) {
+      _api_user_js__WEBPACK_IMPORTED_MODULE_0__["default"].deleteUser(data.id).then(function (_ref20) {
+        var data = _ref20.data;
         commit('setDeleteUserLoadStatus', 2);
-        commit('setDeleteUserResponse', response.data);
+        commit('setDeleteUserResponse', data);
       })["catch"](function () {
         commit('setDeleteUserLoadStatus', 3);
         commit('setDeleteUserResponse', {

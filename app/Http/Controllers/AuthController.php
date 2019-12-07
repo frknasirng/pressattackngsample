@@ -49,13 +49,21 @@ class AuthController extends Controller
         if (Auth::guard('web')->attempt($credentials)) {
 			// Authentication passed...
 			$token = Auth::guard('web')->user()->createToken(str_replace(' ', '_', env('APP_NAME')).'_token')->accessToken;
-			$response = ['token' => $token];
+			$response = [
+				'success' => 1,
+				'token' => $token
+			];
+			
 			return response()->json(
 				$response,
 				200
 			);
         } else {
-			$response = ['message' => "Something went wrong..."];
+			$response = [
+				'success' => 0,
+				"message" => "an error occurred...try again"
+			];
+
 			return response()->json(
 				$response,
 				422
@@ -111,6 +119,7 @@ class AuthController extends Controller
 			// Mail::to($request->user())->send(new PasswordReset($link));
 			// return response()->json(
 			// 	[
+			//		'success' => 1,
 			// 		'message' => 'Token created successfully'
 			// 	],
 			// 	200
@@ -169,12 +178,16 @@ class AuthController extends Controller
 
 			return response()->json(
 				[
+					'success' => 1,
 					'message' => 'Password changed successfully'
 				],
 				200
 			);
 		} else {
-			$response = ['message' => "Something went wrong..."];
+			$response = [
+				'success' => 0,
+				'message' => "An error occurred"
+			];
 			return response()->json(
 				$response,
 				422

@@ -128,12 +128,12 @@ export const user = {
 
             UserAPI.getUsers(
                 data.url
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setUsersLoadStatus', 2);
-                commit('setUsers', response.data.data);
+                commit('setUsers', data);
                 commit('setUserPagination', {
-                    meta: response.data.meta,
-                    links: response.data.links
+                    meta: data.meta,
+                    links: data.links
                 });
             }).catch(function () {
                 commit('setUsersLoadStatus', 3);
@@ -144,9 +144,9 @@ export const user = {
             commit('setUserLoadStatus', 1);
 
             UserAPI.getAuthUser()
-                .then(function (response) {
+                .then(function ({data}) {
                     commit('setUserLoadStatus', 2);
-                    commit('setUser', response.data.data);
+                    commit('setUser', data);
                 })
                 .catch(function () {
                     commit('setUserLoadStatus', 3);
@@ -159,9 +159,9 @@ export const user = {
 
             UserAPI.getAUser(
                 data.id
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setAUserLoadStatus', 2);
-                commit('setAUser', response.data.data);
+                commit('setAUser', data);
             }).catch(function () {
                 commit('setAUserLoadStatus', 3);
                 commit('setAUser', {});
@@ -175,9 +175,9 @@ export const user = {
                 data.email,
                 data.password,
                 data.role_id
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setAddUserLoadStatus', 2);
-                commit('setAddUserResponse', response.data);
+                commit('setAddUserResponse', data);
             }).catch(function () {
                 commit('setAddUserLoadStatus', 3);
                 commit('setAddUserResponse', {
@@ -194,9 +194,9 @@ export const user = {
                 data.name,
                 data.email,
                 data.role_id
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setUpdateUserLoadStatus', 2);
-                commit('setUpdateUserResponse', response.data);
+                commit('setUpdateUserResponse', data);
             }).catch(function () {
                 commit('setUpdateUserLoadStatus', 3);
                 commit('setUpdateUserResponse', {
@@ -211,9 +211,9 @@ export const user = {
             UserAPI.changeUserPassword(
                 data.id,
                 data.password
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setChangeUserPasswordLoadStatus', 2);
-                commit('setChangeUserPasswordResponse', response.data);
+                commit('setChangeUserPasswordResponse', data);
             }).catch(function () {
                 commit('setChangeUserPasswordLoadStatus', 3);
                 commit('setChangeUserPasswordResponse', {
@@ -227,9 +227,9 @@ export const user = {
 
             UserAPI.deleteUser(
                 data.id
-            ).then(function (response) {
+            ).then(function ({data}) {
                 commit('setDeleteUserLoadStatus', 2);
-                commit('setDeleteUserResponse', response.data);
+                commit('setDeleteUserResponse', data);
             }).catch(function () {
                 commit('setDeleteUserLoadStatus', 3);
                 commit('setDeleteUserResponse', {

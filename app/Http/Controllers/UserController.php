@@ -95,7 +95,12 @@ class UserController extends Controller {
             return response()->json([
                 'success' => 1,
                 'message' => 'user password changed successfully'
-            ]);
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'message' => 'an error occurred...try again'
+            ], 500);
         }
 	}
 	
