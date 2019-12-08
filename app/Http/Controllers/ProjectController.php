@@ -47,7 +47,7 @@ class ProjectController extends Controller
                     $results = $localGovernment->projects()->paginate();
                     break;
 
-                case 'project_status':
+                case 'projectStatus':
                     $projectStatus = ProjectStatus::findOrFail($filterId);
                     $results = $projectStatus->projects()->paginate();
                     break;
@@ -83,7 +83,8 @@ class ProjectController extends Controller
         if ($project->save()) {
             return response()->json([
                 'success' => 1,
-                'message' => "added successfully"
+                'message' => "added successfully",
+                'project' => $project
             ], 201);
         } else {
             return response()->json([

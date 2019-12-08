@@ -12,10 +12,9 @@ class LocalGovernmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($stateId)
+    public function index()
     {
-        $state = State::findOrFail($stateId);
-        $localGovernments = $state->localGovernments;
+        $localGovernments = LocalGovernment::paginate();
         return LocalGovernmentResource::collection($localGovernments);
     }
 
@@ -47,7 +46,8 @@ class LocalGovernmentController extends Controller
         if($localGovernment->save()) {
             return response()->json([
                 'success' => 1,
-                'message' => 'local government updated successfully'
+                'message' => 'updated successfully',
+                'localGovernment' => $localGovernment
             ], 200);
         } else {
             return response()->json([

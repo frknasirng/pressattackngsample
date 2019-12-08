@@ -45,7 +45,8 @@ class StateController extends Controller
         if($state->save()) {
             return response()->json([
                 'success' => 1,
-                'message' => 'State updated successfully'
+                'message' => 'updated successfully',
+                'state' => $state
             ], 200);
         } else {
             return response()->json([

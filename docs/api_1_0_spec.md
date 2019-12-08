@@ -428,3 +428,2273 @@ Output:
 	"message": "user password changed successfully"
 }
 ```
+
+# Agency
+
+## Add Agency
+
+### `api/v1/agency` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/agency` | add a new agency. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `name`                 | _(string)_ name of agency.                 |
+| `hq`              | _(string)_ hq of agency.              |
+| `head`                  | _(string)_ name of the head of the agency.             |
+| `email` | _(string)_ official email of the agency. |
+| `phone` | _(string)_ official phone number of the agency |
+| `website` | _(string)_ official website of the agency
+| `description` | _(string)_ official description of the agency
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"agency": {added_agency}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/agency>
+
+Input:
+
+```json
+{
+	"name": '...',
+	"hq": '...',
+	"head": '...',
+	"email": '...',
+	"phone": '...',
+	"website": '...',
+	"description": '..'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"agency": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Update Agency
+
+### `api/v1/agency` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/agency` | update a new agency. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of agency.                 |
+| `name`                 | _(string)_ name of agency.                 |
+| `hq`              | _(string)_ hq of agency.              |
+| `head`                  | _(string)_ name of the head of the agency.             |
+| `email` | _(string)_ official email of the agency. |
+| `phone` | _(string)_ official phone number of the agency |
+| `website` | _(string)_ official website of the agency
+| `description` | _(string)_ official description of the agency
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"agency": {updated_agency}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/agency>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"name": '...',
+	"hq": '...',
+	"head": '...',
+	"email": '...',
+	"phone": '...',
+	"website": '...',
+	"description": '..'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"agency": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Delete Agency
+
+### `api/v1/agency` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/agency` | delete an agency. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of agency.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"agency": {deleted_agency}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/agency>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"agency": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Get Agency
+
+### `api/v1/agency` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/agency` | get an agency. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of agency.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		"hq": ...,
+		...
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/agency>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		"hq": ...,
+		...
+	}
+}
+```
+
+## Browse Agencies
+
+### `api/v1/agency` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/agencies` | browse agencies. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			"id": ...,
+			"name": ...,
+			"hq": ...,
+			...
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/agencies>
+
+Output:
+
+```json
+{
+    {
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			"id": ...,
+			"name": ...,
+			"hq": ...,
+			...
+		]
+	}
+}
+```
+
+# Ministry
+
+## Add Ministry
+
+### `api/v1/ministry` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministry` | add a new ministry. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `name`                 | _(string)_ name of ministry.                 |
+| `hq`              | _(string)_ hq of ministry.              |
+| `head`                  | _(string)_ name of the head of the ministry.             |
+| `email` | _(string)_ official email of the ministry. |
+| `phone` | _(string)_ official phone number of the ministry |
+| `website` | _(string)_ official website of the ministry
+| `description` | _(string)_ official description of the ministry
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"ministry": {added_ministry}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministry>
+
+Input:
+
+```json
+{
+	"name": '...',
+	"hq": '...',
+	"head": '...',
+	"email": '...',
+	"phone": '...',
+	"website": '...',
+	"description": '..'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"ministry": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Update Ministry
+
+### `api/v1/ministry` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministry` | update a new ministry. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of ministry.                 |
+| `name`                 | _(string)_ name of ministry.                 |
+| `hq`              | _(string)_ hq of ministry.              |
+| `head`                  | _(string)_ name of the head of the ministry.             |
+| `email` | _(string)_ official email of the ministry. |
+| `phone` | _(string)_ official phone number of the ministry |
+| `website` | _(string)_ official website of the ministry
+| `description` | _(string)_ official description of the ministry
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"ministry": {updated_ministry}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministry>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"name": '...',
+	"hq": '...',
+	"head": '...',
+	"email": '...',
+	"phone": '...',
+	"website": '...',
+	"description": '..'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"ministry": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Delete Ministry
+
+### `api/v1/ministry` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministry` | delete an ministry. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of ministry.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"ministry": {deleted_ministry}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministry>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"ministry": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Get Ministry
+
+### `api/v1/ministry` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministry` | get an ministry. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of ministry.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		"hq": ...,
+		...
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministry>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		"hq": ...,
+		...
+	}
+}
+```
+
+## Browse Agencies
+
+### `api/v1/ministry` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministries` | browse ministries. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			"id": ...,
+			"name": ...,
+			"hq": ...,
+			...
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministries>
+
+Output:
+
+```json
+{
+    {
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			"id": ...,
+			"name": ...,
+			"hq": ...,
+			...
+		]
+	}
+}
+```
+
+# Bookmark
+
+## Add Bookmark
+
+### `api/v1/bookmark` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/bookmark` | add a new bookmark. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `user_id`                 | _(string)_ unique id of user.                 |
+| `project_id`              | _(string)_ project to be bookmarked by user.              |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"bookmark": {added_bookmark}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/bookmark>
+
+Input:
+
+```json
+{
+	"user_id": '...',
+	"project_id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"bookmark": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Delete Bookmark
+
+### `api/v1/bookmark` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/bookmark` | delete an bookmark. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `user_id`                 | _(string)_ unique id of user.                 |
+| `project_id`              | _(string)_ project id to be bookmarked
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"bookmark": {deleted_bookmark}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/bookmark>
+
+Input:
+
+```json
+{
+	"user_id": '...',
+	"project_id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"bookmark": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+# Local Government
+
+## Update Local Government
+
+### `api/v1/localGovernment` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/localGovernment/{id}` | update a new local government. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of localGovernment.                 |
+| `latitude`                 | _(string)_ latitude of localGovernment.                 |
+| `longitude`              | _(string)_ longitude of localGovernment.              |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"localGovernment": {updated_localGovernment}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/localGovernment>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"latitude": '...',
+	"longitude": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"localGovernment": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Browse Local Governments
+
+### `api/v1/localGovernments` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/ministries` | browse local governments. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				"state_id": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				"state_id": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/ministries>
+
+Output:
+
+```json
+{
+    {
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				"state_id": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				"state_id": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+# State
+
+## Update State
+
+### `api/v1/state` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/state/{id}` | update a new state. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of state.                 |
+| `latitude`                 | _(string)_ latitude of state.                 |
+| `longitude`              | _(string)_ longitude of state.              |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"state": {updated_state}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/state>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"latitude": '...',
+	"longitude": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"state": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Browse States
+
+### `api/v1/states` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/states` | browse states. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				"localGovernments": [...],
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				"localGovernments": [...],
+				...
+			}
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/states>
+
+Output:
+
+```json
+{
+    {
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				"localGovernments": [...],
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				"localGovernments": [...],
+				...
+			}
+		]
+	}
+}
+```
+
+# Project Status
+
+## Add Project Status
+
+### `api/v1/projectStatus` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectStatus` | add a new project status. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `name`                 | _(string)_ name of projectStatus.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"projectStatus": {added_projectStatus}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectStatus>
+
+Input:
+
+```json
+{
+	"name": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"projectStatus": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Update Project Status
+
+### `api/v1/projectStatus/{id}` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectStatus/{id}` | update a projectStatus. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectStatus.                 |
+| `name`                 | _(string)_ name of projectStatus.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"projectStatus": {updated_projectStatus}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectStatus>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"name": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"projectStatus": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Delete Project Status
+
+### `api/v1/projectStatus` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectStatus` | delete an projectStatus. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectStatus.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"projectStatus": {deleted_projectStatus}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectStatus>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"projectStatus": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Get Project Status
+
+### `api/v1/projectStatus` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectStatus` | get an projectStatus. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectStatus.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectStatus>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		...
+	}
+}
+```
+
+## Browse Project Statuses
+
+### `api/v1/projectStatuses` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectStatuses` | browse projectStatuses. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectStatuses>
+
+Output:
+
+```json
+{
+    {
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+# Project Type
+
+## Add Project Type
+
+### `api/v1/projectType` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectType` | add a new project type. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `name`                 | _(string)_ name of projectType.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"projectType": {added_projectType}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectType>
+
+Input:
+
+```json
+{
+	"name": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"projectType": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Update Project Type
+
+### `api/v1/projectType/{id}` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectType/{id}` | update a projectType. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectType.                 |
+| `name`                 | _(string)_ name of projectType.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"projectType": {updated_projectType}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectType>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"name": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"projectType": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Delete Project Type
+
+### `api/v1/projectType` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectType` | delete an projectType. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectType.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"projectType": {deleted_projectType}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectType>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"projectType": {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+## Get Project Type
+
+### `api/v1/projectType` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectType` | get an projectType. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of projectType.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectType>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...,
+		...
+	}
+}
+```
+
+## Browse Project Typees
+
+### `api/v1/projectTypees` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projectTypees` | browse projectTypees. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projectTypes>
+
+Output:
+
+```json
+{
+    {
+		"data":[
+			{
+				"id": ...,
+				"name": ...,
+				...
+			},
+			{
+				"id": ...,
+				"name": ...,
+				...
+			}
+		]
+	}
+}
+```
+
+# Project 
+
+## Add Project 
+
+### `api/v1/project` (POST)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/project` | add a new project . |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `title`                 | _(string)_ title of project.                 |
+| `description`                 | _(string)_ description of project.                 |
+| `allocation`                 | _(integer)_ allocation for project.                 |
+| `agency_id`                 | _(integer)_ id of project.                 |
+| `ministry_id`                 | _(integer)_ ministry of project.                 |
+| `date_commissioned`                 | _(string)_ commissioning date of project.                 |
+| `location_type`                 | _(string)_ location type of project.(state or localGovernment)              |
+| `location_id`                 | _(integer)_ id of location of project.                 |
+| `project_status_id`                 | _(integer)_ status id of project.                 |
+| `user_id`                 | _(string)_ id of user creating project.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"project": {added_project}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/project>
+
+Input:
+
+```json
+{
+	"title": '...',
+	"description": '...',
+	"allocation": '...',
+	"agency_id": '...',
+	"ministry_id": '...',
+	"date_commissioned": '...',
+	"location_type": '...',
+	"location_id": '...',
+	"project_status_id": '...',
+	"user_id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "added successfully",
+	"project": {
+		"id": ...,
+		"title": '...',
+		"description": '...',
+		"allocation": '...',
+		"agency_id": '...',
+		"ministry_id": '...',
+		"date_commissioned": '...',
+		"location_type": '...',
+		"location_id": '...',
+		"project_status_id": '...',
+		"user_id": '...'
+	}
+}
+```
+
+## Update Project 
+
+### `api/v1/project/{id}` (PUT)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/project/{id}` | update a project. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of project.                 |
+| `title`                 | _(string)_ title of project.                 |
+| `description`                 | _(string)_ description of project.                 |
+| `allocation`                 | _(integer)_ allocation for project.                 |
+| `agency_id`                 | _(integer)_ id of project.                 |
+| `ministry_id`                 | _(integer)_ ministry of project.                 |
+| `date_commissioned`                 | _(string)_ commissioning date of project.                 |
+| `location_type`                 | _(string)_ location type of project.(state or localGovernment)              |
+| `location_id`                 | _(integer)_ id of location of project.                 |
+| `project_status_id`                 | _(integer)_ status id of project.                 |
+| `user_id`                 | _(string)_ id of user creating project.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "update successfully",
+	"project": {updated_project}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/project>
+
+Input:
+
+```json
+{
+	"id": '...',
+	"title": '...',
+	"description": '...',
+	"allocation": '...',
+	"agency_id": '...',
+	"ministry_id": '...',
+	"date_commissioned": '...',
+	"location_type": '...',
+	"location_id": '...',
+	"project_status_id": '...',
+	"user_id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "updated successfully",
+	"project": {
+		"id": '...',
+		"title": '...',
+		"description": '...',
+		"allocation": '...',
+		"agency_id": '...',
+		"ministry_id": '...',
+		"date_commissioned": '...',
+		"location_type": '...',
+		"location_id": '...',
+		"project_status_id": '...',
+		"user_id": '...'
+	}
+}
+```
+
+## Delete Project 
+
+### `api/v1/project` (DELETE)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/project` | delete a project. |
+
+#### Required role
+
+`admin`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(string)_ unique id of project.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"project": {
+		"id": '...',
+		"title": '...',
+		"description": '...',
+		"allocation": '...',
+		"agency_id": '...',
+		"ministry_id": '...',
+		"date_commissioned": '...',
+		"location_type": '...',
+		"location_id": '...',
+		"project_status_id": '...',
+		"user_id": '...'
+	}
+}
+```
+
+##### failed
+
+```json
+{
+    "success": 0,
+    "message": "something went wrong"
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/project>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    "success": 1,
+	"message": "deleted successfully",
+	"project": {
+		"id": '...',
+		"title": '...',
+		"description": '...',
+		"allocation": '...',
+		"agency_id": '...',
+		"ministry_id": '...',
+		"date_commissioned": '...',
+		"location_type": '...',
+		"location_id": '...',
+		"project_status_id": '...',
+		"user_id": '...'
+	}
+}
+```
+
+## Get Project 
+
+### `api/v1/project/{id}` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/project/{id}` | get a project. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `id`                 | _(integer)_ unique id of project.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+    data: {
+		"id": ...,
+		"name": ...
+		...
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/project>
+
+Input:
+
+```json
+{
+	"id": '...'
+}
+```
+
+Output:
+
+```json
+{
+    data: {
+		"id": '...',
+		"title": '...',
+		"description": '...',
+		"allocation": '...',
+		"agency_id": '...',
+		"ministry_id": '...',
+		"date_commissioned": '...',
+		"location_type": '...',
+		"location_id": '...',
+		"project_status_id": '...',
+		"user_id": '...'
+	}
+}
+```
+
+## Browse Project es
+
+### `api/v1/projects` (GET)
+
+| URL               | Function             |
+| ----------------- | -------------------- |
+| `api/v1/projects` | browse projects. |
+
+#### Required role
+
+`any`.
+
+#### Input Description
+
+| Field                   | Description                                   |
+| ----------------------- | --------------------------------------------- |
+| `filter`                 | _(string)_ filter projects result by `agency`, `ministry`, `state`, `localGovernment`, `projectStatus`.                 |
+| `filterId`                 | _(integer)_ id of the filter: `agency_id`, `ministry_id`, `state_id`, `localGovernment_id`, `project_status_id`.                 |
+
+#### Output Description
+
+##### successful
+
+```json
+{
+	{
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": '...',
+				"title": '...',
+				"description": '...',
+				"allocation": '...',
+				"agency_id": '...',
+				"ministry_id": '...',
+				"date_commissioned": '...',
+				"location_type": '...',
+				"location_id": '...',
+				"project_status_id": '...',
+				"user_id": '...'
+			},
+			{
+				"id": '...',
+				"title": '...',
+				"description": '...',
+				"allocation": '...',
+				"agency_id": '...',
+				"ministry_id": '...',
+				"date_commissioned": '...',
+				"location_type": '...',
+				"location_id": '...',
+				"project_status_id": '...',
+				"user_id": '...'
+			},
+			...
+		]
+	}
+}
+```
+
+#### Example
+
+URL: <https://udeme.ng/api/v1/projects/agency/24>
+
+Output:
+
+```json
+{
+    {
+		"total": 50,
+		"per_page": 15,
+		"current_page": 1,
+		"last_page": 4,
+		"first_page_url": "...?page=1",
+		"last_page_url": "...page=4",
+		"next_page_url": "...page=2",
+		"prev_page_url": null,
+		"path": "",
+		"from": 1,
+		"to": 15,
+		"data":[
+			{
+				"id": '...',
+				"title": '...',
+				"description": '...',
+				"allocation": '...',
+				"agency_id": '...',
+				"ministry_id": '...',
+				"date_commissioned": '...',
+				"location_type": '...',
+				"location_id": '...',
+				"project_status_id": '...',
+				"user_id": '...'
+			},
+			{
+				"id": '...',
+				"title": '...',
+				"description": '...',
+				"allocation": '...',
+				"agency_id": '...',
+				"ministry_id": '...',
+				"date_commissioned": '...',
+				"location_type": '...',
+				"location_id": '...',
+				"project_status_id": '...',
+				"user_id": '...'
+			},
+			...
+		]
+	}
+}
+```

@@ -13,10 +13,3 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 	 * /Bookmark Endpoints
 	 */
 });
-
-/**
- * Public routes
- */
-Route::group(['prefix' => 'v1'], function() {
-	
-});
