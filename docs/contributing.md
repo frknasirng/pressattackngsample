@@ -48,9 +48,9 @@ for more information. If the bug and/or the reproduction steps can't be easily
 explained with a few words, it can be hepful to create a [reduced test case][].
 
 [Bug reports]: https://github.com/necolas/issue-guidelines/blob/master/CONTRIBUTING.md#bug-reports
-[GitHub issue tracker]: https://github.com/frknasir/udeme
+[GitHub issue tracker]: hhttps://github.com/PTCIJNG/udeme
 [reduced test case]: http://css-tricks.com/reduced-test-cases
-[new issue]: https://github.com/frknasir/udeme
+[new issue]: hhttps://github.com/PTCIJNG/udeme
 
 ## Work on an issue
 
@@ -59,7 +59,7 @@ Ready to work on an issue? The best is to go to our [Github Projects][] board an
 Now that you have picked your issue you don't want anybody else to start working on
 it at the same time, so don't forget to assign it to yourself and move it to "In Progress".
 
-[Github Projects]: https://github.com/frknasir/udeme/projects/
+[Github Projects]: hhttps://github.com/PTCIJNG/udeme/projects/
 
 ## Pull requests
 
@@ -68,14 +68,14 @@ We use the [Git flow][] branching strategy:
 1. Clone the project
 
     ```bash
-    git clone frknasir/udeme
+    git clone PTCIJNG/udeme
     cd my-project
     ```
 
 2. Create a topic (bug/feature/refactor) branch off `develop`:
 
     ```bash
-    git checkout --track origin/master
+    git checkout --track origin/develop
     git checkout -b my-feature
     ```
 
@@ -114,7 +114,7 @@ In all Repos, we use the following convention for creating branches:
 `fix/<short-description>` for branches that contain fixes, and `feat/<short-description>`
 for feature branches.
 
-we branch off `master` and merge back to `master`.
+we branch off `develop` and merge back to `develop`.
 
 
 ## Commit Messages

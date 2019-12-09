@@ -25,7 +25,7 @@ Please check the official laravel installation guide for server requirements bef
 
 Clone the repository
 
-    git clone https://github.com/frknasir/udeme.git
+    git clone https://github.com/PTCIJNG/udeme.git
 
 Switch to the repo folder
 
@@ -78,8 +78,8 @@ Run the database seeder and you're done
 
 # API(V1) Documentation
 
-Read about the API Documentation [here](https://github.com/frknasir/udeme/blob/master/docs/api_1_0_spec.md)
+Read about the API Documentation [here](https://github.com/PTCIJNG/udeme/blob/master/docs/api_1_0_spec.md)
 
 # Contributing
 
-Sleeves folded, ready to dive in? Read [this](https://github.com/frknasir/udeme/blob/master/docs/contributing.md)
+Sleeves folded, ready to dive in? Read [this](https://github.com/PTCIJNG/udeme/blob/master/docs/contributing.md)
